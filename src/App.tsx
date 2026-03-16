@@ -9,12 +9,12 @@ export default function App() {
         {/* Background Image Overlay */}
         <div className="absolute inset-0 z-0 flex justify-end">
           <div className="w-full md:w-2/3 h-full relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-brand-900 via-brand-900/90 to-transparent z-10"></div>
-            <div className="absolute inset-0 bg-gradient-to-t from-brand-900 via-transparent to-transparent z-10"></div>
-            <img 
-              src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=2070&auto=format&fit=crop" 
-              alt="Dr. Rodrigo Olivares Miranda" 
-              className="w-full h-full object-cover object-top opacity-40 grayscale"
+            <div className="absolute inset-0 bg-gradient-to-r from-brand-900 via-brand-900/60 to-transparent z-10"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-brand-900/80 via-transparent to-transparent z-10"></div>
+            <img
+              src="/DrOlivares.png"
+              alt="Dr. Rodrigo Olivares Miranda"
+              className="w-full h-full object-cover object-top opacity-80"
               referrerPolicy="no-referrer"
             />
           </div>
@@ -52,9 +52,9 @@ export default function App() {
           <div className="mt-24 grid grid-cols-1 md:grid-cols-4 gap-8 items-end border-t border-brand-800 pt-8">
             <div className="flex items-center gap-4">
               <img 
-                src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=200&auto=format&fit=crop" 
-                alt="Profile" 
-                className="w-16 h-16 rounded-full object-cover grayscale"
+                src="/caradro.png"
+                alt="Profile"
+                className="w-16 h-16 rounded-full object-cover"
                 referrerPolicy="no-referrer"
               />
               <div>
@@ -166,7 +166,7 @@ export default function App() {
                 <div className="absolute inset-0 border-2 border-brand-500/50 rounded-tl-[10rem] rounded-br-[10rem] rounded-tr-3xl rounded-bl-3xl -translate-x-4 translate-y-4 z-0"></div>
                 <div className="relative w-full h-full rounded-tl-[10rem] rounded-br-[10rem] rounded-tr-3xl rounded-bl-3xl overflow-hidden z-10 bg-brand-900">
                   <img 
-                    src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=1000&auto=format&fit=crop" 
+                    src="/DrOlivares.png"
                     alt="Dr. Rodrigo Olivares" 
                     className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500 mix-blend-luminosity hover:mix-blend-normal"
                     referrerPolicy="no-referrer"
@@ -354,9 +354,9 @@ export default function App() {
           
           <div className="flex items-center gap-4">
             <img 
-              src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=100&auto=format&fit=crop" 
-              alt="Dr. Rodrigo Olivares" 
-              className="w-10 h-10 rounded-full object-cover grayscale"
+              src="/caradro.png"
+              alt="Dr. Rodrigo Olivares"
+              className="w-10 h-10 rounded-full object-cover"
               referrerPolicy="no-referrer"
             />
             <div>
