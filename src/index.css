@@ -25,3 +25,56 @@ body {
   background-color: #ffffff;
   color: var(--color-slate-600);
 }
+
+/* OlvaiD Lab logo */
+.olvaid-link {
+  color: #000000;
+  text-decoration: none;
+  font-weight: 800;
+  font-style: italic;
+  display: inline-block;
+  white-space: nowrap;
+  transition: color 0.3s, text-shadow 0.3s;
+  text-shadow:
+    0 0 1px #ff2400,
+    0 0 4px #ff2400,
+    0 0 10px #ff2400,
+    0 0 18px #cc0000;
+  animation: electricFlicker 2s infinite alternate;
+}
+
+.olvaid-link:hover {
+  color: #000000;
+  text-shadow:
+    0 0 2px #ff2400,
+    0 0 8px #ff2400,
+    0 0 20px #ff2400,
+    0 0 35px #cc0000;
+}
+
+@keyframes electricFlicker {
+  0%, 18%, 22%, 25%, 53%, 57%, 100% {
+    text-shadow: 0 0 1px #ff2400, 0 0 4px #ff2400, 0 0 10px #ff2400, 0 0 18px #cc0000;
+    opacity: 1;
+  }
+  20%, 24%, 55% {
+    text-shadow: none;
+    opacity: 0.5;
+  }
+}
+
+/* Animación hueso al hacer click */
+.olvaid-link.olvaid-bone {
+  animation: boneAppear 1.8s ease-in-out forwards;
+  font-style: normal;
+  cursor: default;
+  pointer-events: none;
+}
+
+@keyframes boneAppear {
+  0%   { transform: scale(1) rotate(0deg);   opacity: 1; }
+  25%  { transform: scale(1.6) rotate(120deg); opacity: 1; }
+  60%  { transform: scale(2) rotate(360deg); opacity: 1; }
+  85%  { transform: scale(1.4) rotate(480deg); opacity: 0.6; }
+  100% { transform: scale(0) rotate(600deg); opacity: 0; }
+}
