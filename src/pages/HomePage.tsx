@@ -18,6 +18,31 @@ const TESTIMONIALS = [
   { name: "Ana Silva", date: "Febrero 2025", text: "Llevo años atendiéndome con este excelente profesional y su equipo. Totalmente recomendado, agradezco toda la atención dirigida a lo largo de este tiempo. Que Dios lo bendiga inmensamente." },
 ];
 
+function CountUp({ end, prefix = '', suffix = '', duration = 2000, className = '' }: { end: number, prefix?: string, suffix?: string, duration?: number, className?: string }) {
+  const [count, setCount] = useState(0);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: '-50px' });
+
+  useEffect(() => {
+    if (!isInView) return;
+    let startTime: number | null = null;
+    const animate = (time: number) => {
+      if (!startTime) startTime = time;
+      const progress = Math.min((time - startTime) / duration, 1);
+      const easeProgress = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+      setCount(Math.floor(easeProgress * end));
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        setCount(end);
+      }
+    };
+    requestAnimationFrame(animate);
+  }, [isInView, end, duration]);
+
+  return <span ref={ref} className={className}>{prefix}{count}{suffix}</span>;
+}
+
 function FadeIn({ children, delay = 0, className = '' }: { children: React.ReactNode; delay?: number; className?: string; key?: React.Key }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-60px' });
@@ -250,15 +275,15 @@ export default function HomePage() {
               </div>
             </div>
             <div>
-              <p className="font-serif text-4xl md:text-5xl mb-1 text-white">+500</p>
+              <p className="font-serif text-4xl md:text-5xl mb-1 text-white"><CountUp end={500} prefix="+" /></p>
               <p className="text-sm text-bg-main font-light">cirugías</p>
             </div>
             <div>
-              <p className="font-serif text-4xl md:text-5xl mb-1 text-white">+12</p>
+              <p className="font-serif text-4xl md:text-5xl mb-1 text-white"><CountUp end={12} prefix="+" /></p>
               <p className="text-sm text-bg-main font-light">años experiencia</p>
             </div>
             <div>
-              <p className="font-serif text-4xl md:text-5xl mb-1 text-white">3</p>
+              <p className="font-serif text-4xl md:text-5xl mb-1 text-white"><CountUp end={3} /></p>
               <p className="text-sm text-bg-main font-light">sedes Bupa</p>
             </div>
           </div>
@@ -499,14 +524,16 @@ export default function HomePage() {
           </FadeIn>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-6">
             {[
-              { num: '+500', label: 'Cirugías realizadas' },
-              { num: '+12', label: 'Años de experiencia' },
-              { num: '3', label: 'Sedes Clínicas Bupa' },
-              { num: '100%', label: 'Dedicación a la cadera' },
+              { end: 500, prefix: '+', label: 'Cirugías realizadas' },
+              { end: 12, prefix: '+', label: 'Años de experiencia' },
+              { end: 3, prefix: '', label: 'Sedes Clínicas Bupa' },
+              { end: 100, prefix: '', suffix: '%', label: 'Dedicación a la cadera' },
             ].map((item, i) => (
               <FadeIn key={i} delay={i * 0.08}>
                 <div className="border border-brand rounded-lg p-8 text-center hover:border-brand transition-colors">
-                  <p className="font-serif text-4xl md:text-5xl text-white mb-2">{item.num}</p>
+                  <p className="font-serif text-4xl md:text-5xl text-white mb-2">
+                    <CountUp end={item.end} prefix={item.prefix} suffix={item.suffix} />
+                  </p>
                   <p className="text-sm text-bg-main font-light">{item.label}</p>
                 </div>
               </FadeIn>
