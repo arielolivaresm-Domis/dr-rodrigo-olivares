@@ -48,6 +48,26 @@ export default function App() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  useEffect(() => {
+    const prev = document.getElementById('video-cadera-schema');
+    if (prev) prev.remove();
+    const s = document.createElement('script');
+    s.id = 'video-cadera-schema';
+    s.type = 'application/ld+json';
+    s.textContent = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'VideoObject',
+      name: 'Artrosis de Cadera — Qué es y cómo se trata | Dr. Rodrigo Olivares M.',
+      description: 'Explicación médica de la artrosis de cadera: causas, síntomas, diagnóstico y opciones de tratamiento incluyendo reemplazo total de cadera.',
+      thumbnailUrl: 'https://www.drolivaresm.cl/caradro.png',
+      contentUrl: 'https://www.drolivaresm.cl/VideoCadera.mp4',
+      uploadDate: '2026-06-27',
+      publisher: { '@id': 'https://www.drolivaresm.cl/#business' },
+    });
+    document.head.appendChild(s);
+    return () => { document.getElementById('video-cadera-schema')?.remove(); };
+  }, []);
+
   const handleOlvaidClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     if (olvaidAnim) return;
@@ -398,11 +418,18 @@ export default function App() {
                 frameBorder="0"
                 allowFullScreen
                 allow="autoplay; fullscreen; xr-spatial-tracking"
-                src="https://sketchfab.com/models/2e1f343abbdf4bbeb481a076e8674330/embed"
+                src="https://sketchfab.com/models/2e1f343abbdf4bbeb481a076e8674330/embed?autostart=0&ui_infos=0&ui_watermark=0"
                 className="w-full h-full"
                 onLoad={() => setModel1Loaded(true)}
               ></iframe>
             </div>
+            <p style={{fontSize: '13px', fontWeight: 'normal', margin: '5px', color: '#4A4A4A'}}>
+              <a href="https://sketchfab.com/3d-models/cadera-con-deformidad-2e1f343abbdf4bbeb481a076e8674330?utm_medium=embed&utm_campaign=share-popup&utm_content=2e1f343abbdf4bbeb481a076e8674330" target="_blank" rel="nofollow" style={{fontWeight: 'bold', color: '#1CAAD9'}}>Cadera con Deformidad</a>
+              {' '}by{' '}
+              <a href="https://sketchfab.com/Biomedic-Lab3D?utm_medium=embed&utm_campaign=share-popup&utm_content=2e1f343abbdf4bbeb481a076e8674330" target="_blank" rel="nofollow" style={{fontWeight: 'bold', color: '#1CAAD9'}}>Biomedic-Lab3D</a>
+              {' '}on{' '}
+              <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=2e1f343abbdf4bbeb481a076e8674330" target="_blank" rel="nofollow" style={{fontWeight: 'bold', color: '#1CAAD9'}}>Sketchfab</a>
+            </p>
           </FadeIn>
         </div>
       </section>
@@ -441,7 +468,7 @@ export default function App() {
                     {[...Array(5)].map((_, s) => <Star key={s} size={14} className="fill-yellow-400 text-yellow-400" />)}
                   </div>
                   <h4 className="font-medium text-lg mb-1 relative z-10">{t.name}</h4>
-                  <p className="text-xs text-brand-400 font-medium italic mb-4 relative z-10">Paciente Verificado · Google · {t.date}</p>
+                  <p className="text-xs text-brand-400 font-medium italic mb-4 relative z-10">Paciente · {t.date}</p>
                   <p className="text-brand-50 font-light italic leading-relaxed relative z-10">{t.text}</p>
                 </motion.div>
               </FadeIn>
@@ -602,6 +629,9 @@ export default function App() {
                 {olvaidAnim ? '🦴' : 'OlvaiD Lab'}
               </a>
             </span>
+            <a href="mailto:contacto@drolivaresm.cl" className="text-xs text-slate-500 hover:text-brand-600 transition-colors">
+              contacto@drolivaresm.cl
+            </a>
             <a href="https://www.instagram.com/dr.rodrigo.olivares/" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-brand-600 transition-colors">
               <Instagram size={18} />
             </a>
@@ -639,7 +669,7 @@ export default function App() {
                 <p><strong className="font-semibold text-slate-800">Datos recopilados:</strong> Este sitio web no almacena datos personales ni utiliza formularios de contacto. El agendamiento de consultas se realiza a través de la plataforma segura de Clínicas Bupa, sujeta a su propia política de privacidad.</p>
                 <p><strong className="font-semibold text-slate-800">Cookies:</strong> Este sitio no utiliza cookies de seguimiento ni herramientas de analítica de terceros.</p>
                 <p><strong className="font-semibold text-slate-800">Contenido:</strong> Todo el contenido médico e imágenes publicadas tienen fines exclusivamente informativos y educativos. No constituyen consejo médico.</p>
-                <p><strong className="font-semibold text-slate-800">Contacto:</strong> Para consultas sobre privacidad, puede comunicarse directamente a través de Clínicas Bupa.</p>
+                <p><strong className="font-semibold text-slate-800">Contacto:</strong> Para consultas sobre privacidad, puede escribir a <a href="mailto:contacto@drolivaresm.cl" className="text-brand-600 underline">contacto@drolivaresm.cl</a> o a través de Clínicas Bupa.</p>
                 <p className="text-slate-400 text-xs">Última actualización: Marzo 2026.</p>
               </div>
             </motion.div>
