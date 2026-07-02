@@ -1,3 +1,6 @@
 {
-  "name": "drolivaresm-preview"
+  "name": "drolivaresm-preview",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
 }

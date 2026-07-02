@@ -18,7 +18,7 @@ const TESTIMONIALS = [
   { name: "Ana Silva", date: "Febrero 2025", text: "Llevo años atendiéndome con este excelente profesional y su equipo. Totalmente recomendado, agradezco toda la atención dirigida a lo largo de este tiempo. Que Dios lo bendiga inmensamente." },
 ];
 
-function CountUp({ end, prefix = '', suffix = '', duration = 2000, className = '' }: { end: number, prefix?: string, suffix?: string, duration?: number, className?: string }) {
+function CountUp({ end, prefix = '', suffix = '', duration = 2000, className = '' }: { end: number, prefix?: string, suffix?: string, duration?: number, className?: string, enableScrollSpy?: boolean, scrollSpyOnce?: boolean }) {
   const [count, setCount] = useState(0);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
