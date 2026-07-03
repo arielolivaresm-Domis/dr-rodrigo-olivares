@@ -19,3 +19,17 @@
 - Rama de producción: `main`
 - Dominio: drolivaresm.cl / www.drolivaresm.cl
 - Proyecto Vercel: `dr-rodrigo-olivares` (org: ariel-oms-projects)
+
+## Protocolo de emergencia (si algo rompe producción)
+**Opción A — vos mismo, sin código, en 1 minuto:**
+1. vercel.com/dashboard → proyecto `dr-rodrigo-olivares` → tab **Deployments**
+2. Buscá el último deploy **Ready** de ANTES de que empezara el problema
+3. Click **⋯** al lado de ese deploy → **Promote to Production**
+4. Confirmá — el sitio vuelve al instante, sin rebuild ni espera
+
+**Opción B — pedirle a un agente (Claude, etc.):**
+"Volvé drolivaresm.cl a como estaba antes de [hora/evento]" — el agente revisa
+`vercel ls dr-rodrigo-olivares` y promueve el deploy correcto.
+
+**Nunca** intentar arreglar en caliente editando código directo en producción.
+Primero rollback, después se investiga con calma en local.
