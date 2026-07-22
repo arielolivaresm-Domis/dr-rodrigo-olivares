@@ -4,6 +4,54 @@ import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 
 const ARTICLES = [
   {
+    slug: 'necrosis-avascular-cadera',
+    title: 'Necrosis Avascular de Cadera: Causas y Tratamiento',
+    description: 'Osteonecrosis de la cabeza femoral: causas, estadios, diagnóstico precoz con RM y opciones desde descompresión central hasta reemplazo total. Clínica Bupa Santiago.',
+    date: '14 de julio de 2026',
+  },
+  {
+    slug: 'fractura-cadera',
+    title: 'Fractura de Cadera: Tratamiento Quirúrgico en Clínica Bupa Santiago',
+    description: 'Tipos de fractura de cadera, por qué operar rápido, opciones quirúrgicas (fijación vs reemplazo) y recuperación con protocolo ERAS.',
+    date: '14 de julio de 2026',
+  },
+  {
+    slug: 'cadera-deportista-artroscopia',
+    title: 'Cadera del Deportista: Artroscopía y Pinzamiento Femoroacetabular',
+    description: 'FAI, lesión de labrum y artroscopía de cadera mínimamente invasiva para deportistas jóvenes. Dr. Olivares en Clínica Bupa Santiago.',
+    date: '14 de julio de 2026',
+  },
+  {
+    slug: 'cirugia-revision-cadera',
+    title: 'Cirugía de Revisión de Cadera en Clínica Bupa Santiago',
+    description: 'Qué es, cuándo se necesita, causas de fallo de prótesis y proceso quirúrgico. El Dr. Olivares realiza revisión de cadera en Clínica Bupa Santiago.',
+    date: '14 de julio de 2026',
+  },
+  {
+    slug: 'displasia-cadera-adulto',
+    title: 'Displasia de Cadera en el Adulto: Síntomas y Tratamiento',
+    description: 'Por qué la displasia causa dolor en jóvenes, cómo se diagnostica y cuándo requiere cirugía correctiva o reemplazo.',
+    date: '12 de julio de 2026',
+  },
+  {
+    slug: 'reemplazo-total-cadera-artroplastia',
+    title: 'Reemplazo Total de Cadera (Artroplastía): Qué es y Cómo Funciona',
+    description: 'Qué se hace en la cirugía, tipos de prótesis, abordaje anterior vs posterior, cuánto dura el implante y protocolo ERAS.',
+    date: '10 de julio de 2026',
+  },
+  {
+    slug: 'recuperacion-reemplazo-cadera',
+    title: 'Recuperación tras el Reemplazo de Cadera: Etapas y Plazos',
+    description: 'Qué esperar en cada etapa de la recuperación: desde las primeras 24h hasta el retorno completo a las actividades.',
+    date: '7 de julio de 2026',
+  },
+  {
+    slug: 'cuando-operar-cadera',
+    title: '¿Cuándo operar la cadera? Criterios para la cirugía',
+    description: 'Los criterios médicos que determinan el momento correcto para operarse: dolor, función, imágenes y fracaso del tratamiento conservador.',
+    date: '4 de julio de 2026',
+  },
+  {
     slug: 'artrosis-cadera-sintomas-tratamiento',
     title: 'Artrosis de Cadera: Síntomas y Tratamiento',
     description: 'Primeros síntomas, diagnóstico y opciones de tratamiento, desde manejo conservador hasta reemplazo total de cadera.',
@@ -14,7 +62,7 @@ const ARTICLES = [
 export default function BlogIndex() {
   useEffect(() => {
     const prevTitle = document.title;
-    document.title = 'Blog | Dr. Rodrigo Olivares M. — Ortopedista Cadera Santiago';
+    document.title = 'Blog | Dr. Rodrigo Olivares M. — Cirujano de Cadera Santiago';
     return () => { document.title = prevTitle; };
   }, []);
 
@@ -55,7 +103,6 @@ export default function BlogIndex() {
           ))}
         </div>
 
-        <p className="text-sm text-slate-400 mt-10">Más artículos próximamente.</p>
       </div>
     </div>
   );
