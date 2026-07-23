@@ -266,18 +266,28 @@ export default function HomePage() {
               </p>
             </motion.div>
 
-            <motion.a
+            <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7 }}
-              href={BUPA_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 bg-brand-600 text-white px-8 py-4 rounded-sm font-medium tracking-wide hover:bg-brand-700 transition-all shadow-lg shadow-brand-600/30"
+              className="flex flex-wrap gap-4"
             >
-              AGENDAR CONSULTA
-              <ArrowUpRight size={20} />
-            </motion.a>
+              <a
+                href={BUPA_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 bg-brand-600 text-white px-8 py-4 rounded-sm font-medium tracking-wide hover:bg-brand-700 transition-all shadow-lg shadow-brand-600/30"
+              >
+                AGENDAR CONSULTA
+                <ArrowUpRight size={20} />
+              </a>
+              <Link
+                to="/cita"
+                className="inline-flex items-center gap-3 bg-white/10 text-white border border-white/30 px-8 py-4 rounded-sm font-medium tracking-wide hover:bg-white/20 transition-all"
+              >
+                Agendar consulta online
+              </Link>
+            </motion.div>
           </div>
 
           <div className="mt-24 grid grid-cols-1 md:grid-cols-4 gap-8 items-end border-t border-brand-800 pt-8">
@@ -751,7 +761,7 @@ export default function HomePage() {
               </div>
               <div className="text-sm text-slate-600 space-y-4 font-light leading-relaxed">
                 <p><strong className="font-semibold text-slate-800">Responsable:</strong> Dr. Rodrigo Olivares Miranda, médico especialista en Traumatología y Cirugía de Cadera, Santiago, Chile.</p>
-                <p><strong className="font-semibold text-slate-800">Datos recopilados:</strong> Este sitio web no almacena datos personales ni utiliza formularios de contacto. El agendamiento de consultas se realiza a través de la plataforma segura de Clínica Bupa Santiago, sujeta a su propia política de privacidad.</p>
+                <p><strong className="font-semibold text-slate-800">Datos recopilados:</strong> El sitio cuenta con un formulario de contacto en la sección "Agendar consulta" (nombre, email, teléfono y mensaje), procesado a través de Formspree y utilizado exclusivamente para responder tu solicitud. El agendamiento de consultas también puede realizarse a través de la plataforma segura de Clínica Bupa Santiago, sujeta a su propia política de privacidad.</p>
                 <p><strong className="font-semibold text-slate-800">Cookies y analítica:</strong> Este sitio utiliza Google Analytics 4 (GA4) para medir visitas de forma anónima y mejorar la experiencia. No se recopilan datos personales identificables. Puede desactivar el seguimiento desde la configuración de su navegador.</p>
                 <p><strong className="font-semibold text-slate-800">Contenido:</strong> Todo el contenido médico e imágenes publicadas tienen fines exclusivamente informativos y educativos. No constituyen consejo médico.</p>
                 <p><strong className="font-semibold text-slate-800">Contacto:</strong> Para consultas sobre privacidad, puede escribir a <a href="mailto:Dr.olivaresm@gmail.com" className="text-brand-600 underline">Dr.olivaresm@gmail.com</a> o a través de Clínica Bupa Santiago.</p>

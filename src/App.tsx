@@ -1,5 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
+import Cita from './pages/Cita';
+import CitaGracias from './pages/CitaGracias';
 import BlogIndex from './pages/blog/BlogIndex';
 import ArtrosisCaderaSintomasTratamiento from './pages/blog/ArtrosisCaderaSintomasTratamiento';
 import CuandoOperarCadera from './pages/blog/CuandoOperarCadera';
@@ -15,6 +17,8 @@ export default function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
+      <Route path="/cita" element={<Cita />} />
+      <Route path="/cita/gracias" element={<CitaGracias />} />
       <Route path="/blog" element={<BlogIndex />} />
       <Route path="/blog/artrosis-cadera-sintomas-tratamiento" element={<ArtrosisCaderaSintomasTratamiento />} />
       <Route path="/blog/cuando-operar-cadera" element={<CuandoOperarCadera />} />
