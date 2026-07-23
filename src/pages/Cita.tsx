@@ -6,7 +6,7 @@ const BUPA_PROFILE_URL = "https://www.clinicabupasantiago.cl/nuestros-especialis
 
 // TODO: reemplazar por la access key real de Web3Forms
 // (entrar a web3forms.com, ingresar Dr.olivaresm@gmail.com, "Create Access Key" — la entrega al instante)
-const WEB3FORMS_ACCESS_KEY = "TU_ACCESS_KEY";
+const WEB3FORMS_ACCESS_KEY = "e5c99e8b-95b5-4a84-92b4-b8e96ebde48d";
 
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
