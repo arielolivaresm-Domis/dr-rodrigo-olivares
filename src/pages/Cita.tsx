@@ -4,9 +4,9 @@ import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 
 const BUPA_PROFILE_URL = "https://www.clinicabupasantiago.cl/nuestros-especialistas/dra-rodrigo-olivares-miranda";
 
-// TODO: reemplazar por el endpoint real tras crear el formulario en formspree.io
-// (registrar con Dr.olivaresm@gmail.com, copiar el ID que entrega Formspree)
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/TU_FORM_ID";
+// TODO: reemplazar por la access key real de Web3Forms
+// (entrar a web3forms.com, ingresar Dr.olivaresm@gmail.com, "Create Access Key" — la entrega al instante)
+const WEB3FORMS_ACCESS_KEY = "TU_ACCESS_KEY";
 
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
@@ -62,13 +62,14 @@ export default function Cita() {
             <div className="md:col-span-3">
               <h2 className="font-serif text-2xl text-slate-900 mb-6">Cuéntanos tu caso</h2>
               <form
-                action={FORMSPREE_ENDPOINT}
+                action="https://api.web3forms.com/submit"
                 method="POST"
                 className="space-y-5"
               >
-                <input type="hidden" name="_next" value="https://www.drolivaresm.cl/cita/gracias" />
-                <input type="hidden" name="_subject" value="Nueva solicitud de consulta — drolivaresm.cl" />
-                <input type="text" name="_gotcha" className="hidden" tabIndex={-1} autoComplete="off" />
+                <input type="hidden" name="access_key" value={WEB3FORMS_ACCESS_KEY} />
+                <input type="hidden" name="subject" value="Nueva solicitud de consulta — drolivaresm.cl" />
+                <input type="hidden" name="redirect" value="https://www.drolivaresm.cl/cita/gracias" />
+                <input type="checkbox" name="botcheck" className="hidden" tabIndex={-1} autoComplete="off" />
 
                 <div>
                   <label htmlFor="nombre" className="block text-sm font-medium text-slate-700 mb-2">Nombre</label>
