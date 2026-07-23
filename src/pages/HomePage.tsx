@@ -5,6 +5,39 @@ import { motion, useInView, AnimatePresence } from 'motion/react';
 
 const BUPA_URL = "https://agendaclinicas.bupa.cl/clinicas/consulta-medica/reserva-consulta-medica?ref=cbs&profesional=Rodrigo+Andres+Olivares+Miranda&especialidad=Traumatologia+Cadera";
 
+const ESPECIALIDADES = [
+  {
+    label: 'Artroplastia Total',
+    slug: '/blog/reemplazo-total-cadera-artroplastia',
+    desc: 'Reemplazo total de la articulación coxofemoral. Dr. Olivares realiza artroplastia total de cadera en Clínica Bupa Santiago con abordaje anterior (DAA) y protocolo ERAS.',
+  },
+  {
+    label: 'Cirugía de Revisión',
+    slug: '/blog/cirugia-revision-cadera',
+    desc: 'Revisión de prótesis de cadera fallida o con desgaste. Cirugía compleja realizada por el Dr. Olivares en Clínica Bupa Santiago.',
+  },
+  {
+    label: 'Cadera del Deportista',
+    slug: '/blog/cadera-deportista-artroscopia',
+    desc: 'Artroscopía de cadera, pinzamiento femoroacetabular (FAI) y lesión de labrum. Tratamiento mínimamente invasivo en Clínica Bupa Santiago.',
+  },
+  {
+    label: 'Fractura de Cadera',
+    slug: '/blog/fractura-cadera',
+    desc: 'Tratamiento quirúrgico de fracturas de cuello femoral y pertrocantéreas. El Dr. Olivares atiende fracturas de cadera en Clínica Bupa Santiago.',
+  },
+  {
+    label: 'Necrosis Avascular',
+    slug: '/blog/necrosis-avascular-cadera',
+    desc: 'Osteonecrosis de la cabeza femoral: desde descompresión central hasta reemplazo total según el estadio. Atención en Clínica Bupa Santiago.',
+  },
+  {
+    label: 'Artrosis de Cadera',
+    slug: '/blog/artrosis-cadera-sintomas-tratamiento',
+    desc: 'Diagnóstico y tratamiento de artrosis de cadera (coxartrosis) en todas sus etapas. Dr. Olivares, Clínica Bupa Santiago.',
+  },
+];
+
 const NAV_LINKS = [
   { label: 'Especialidades', id: 'especialidades' },
   { label: 'Sobre mí', id: 'sobre-mi' },
@@ -74,25 +107,6 @@ export default function HomePage() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  useEffect(() => {
-    const prev = document.getElementById('video-cadera-schema');
-    if (prev) prev.remove();
-    const s = document.createElement('script');
-    s.id = 'video-cadera-schema';
-    s.type = 'application/ld+json';
-    s.textContent = JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'VideoObject',
-      name: 'Artrosis de Cadera — Qué es y cómo se trata | Dr. Rodrigo Olivares M.',
-      description: 'Explicación médica de la artrosis de cadera: causas, síntomas, diagnóstico y opciones de tratamiento incluyendo reemplazo total de cadera.',
-      thumbnailUrl: 'https://www.drolivaresm.cl/caradro.png',
-      contentUrl: 'https://www.drolivaresm.cl/VideoCadera.mp4',
-      uploadDate: '2026-06-27',
-      publisher: { '@id': 'https://www.drolivaresm.cl/#business' },
-    });
-    document.head.appendChild(s);
-    return () => { document.getElementById('video-cadera-schema')?.remove(); };
-  }, []);
 
   const handlePharosClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -303,15 +317,23 @@ export default function HomePage() {
             </h2>
           </FadeIn>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
-            {["Artroplastia Total", "Cirugía de Revisión", "Cadera del Deportista", "Fractura de Cadera", "Necrosis Avascular", "Artrosis de Cadera"].map((s, i) => (
+            {ESPECIALIDADES.map((esp, i) => (
               <FadeIn key={i} delay={i * 0.07}>
-                <motion.div 
-                  whileHover={{ scale: 1.05, y: -10, rotate: 1 }}
-                  whileTap={{ scale: 0.95 }}
+                <motion.div
+                  whileHover={{ scale: 1.03, y: -6 }}
+                  whileTap={{ scale: 0.97 }}
                   transition={{ type: "spring", stiffness: 300 }}
-                  className="border border-slate-200 bg-white py-8 px-4 hover:border-brand-500 hover:shadow-2xl transition-all cursor-pointer rounded-sm"
                 >
-                  <p className="font-serif text-xl text-brand-600">{s}</p>
+                  <Link
+                    to={esp.slug}
+                    className="block border border-slate-200 bg-white py-7 px-5 hover:border-brand-500 hover:shadow-2xl transition-all rounded-sm text-left group"
+                  >
+                    <p className="font-serif text-xl text-brand-600 mb-3 group-hover:text-brand-700">{esp.label}</p>
+                    <p className="text-sm text-slate-500 font-light leading-relaxed">{esp.desc}</p>
+                    <span className="inline-flex items-center gap-1 text-xs text-brand-600 font-medium mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                      Leer más <ArrowUpRight size={12} />
+                    </span>
+                  </Link>
                 </motion.div>
               </FadeIn>
             ))}
@@ -730,7 +752,7 @@ export default function HomePage() {
               <div className="text-sm text-slate-600 space-y-4 font-light leading-relaxed">
                 <p><strong className="font-semibold text-slate-800">Responsable:</strong> Dr. Rodrigo Olivares Miranda, médico especialista en Traumatología y Cirugía de Cadera, Santiago, Chile.</p>
                 <p><strong className="font-semibold text-slate-800">Datos recopilados:</strong> Este sitio web no almacena datos personales ni utiliza formularios de contacto. El agendamiento de consultas se realiza a través de la plataforma segura de Clínica Bupa Santiago, sujeta a su propia política de privacidad.</p>
-                <p><strong className="font-semibold text-slate-800">Cookies:</strong> Este sitio no utiliza cookies de seguimiento ni herramientas de analítica de terceros.</p>
+                <p><strong className="font-semibold text-slate-800">Cookies y analítica:</strong> Este sitio utiliza Google Analytics 4 (GA4) para medir visitas de forma anónima y mejorar la experiencia. No se recopilan datos personales identificables. Puede desactivar el seguimiento desde la configuración de su navegador.</p>
                 <p><strong className="font-semibold text-slate-800">Contenido:</strong> Todo el contenido médico e imágenes publicadas tienen fines exclusivamente informativos y educativos. No constituyen consejo médico.</p>
                 <p><strong className="font-semibold text-slate-800">Contacto:</strong> Para consultas sobre privacidad, puede escribir a <a href="mailto:Dr.olivaresm@gmail.com" className="text-brand-600 underline">Dr.olivaresm@gmail.com</a> o a través de Clínica Bupa Santiago.</p>
                 <p className="text-slate-400 text-xs">Última actualización: Marzo 2026.</p>

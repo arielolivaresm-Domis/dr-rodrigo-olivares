@@ -85,6 +85,14 @@ export default function ArtrosisCaderaSintomasTratamiento() {
         temprano abre más opciones de tratamiento conservador antes de necesitar cirugía.
       </p>
 
+      <h2 className="font-serif text-2xl text-slate-900 mt-10 mb-3">Atención en Clínica Bupa Santiago</h2>
+      <p>
+        El Dr. Rodrigo Olivares M. atiende artrosis de cadera en todos sus estadios en
+        Clínica Bupa Santiago — desde el manejo conservador inicial hasta la indicación
+        y realización de reemplazo total de cadera cuando los tratamientos conservadores
+        han dejado de ser suficientes.
+      </p>
+
       <p className="text-sm text-slate-400 italic mt-10">
         Este artículo tiene fines informativos y educativos. No reemplaza una consulta médica
         presencial ni constituye un diagnóstico.
