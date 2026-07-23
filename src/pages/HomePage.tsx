@@ -278,7 +278,7 @@ export default function HomePage() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-3 bg-brand-600 text-white px-8 py-4 rounded-sm font-medium tracking-wide hover:bg-brand-700 transition-all shadow-lg shadow-brand-600/30"
               >
-                AGENDAR CONSULTA
+                AGENDAR CONSULTA BUPA
                 <ArrowUpRight size={20} />
               </a>
               <Link
