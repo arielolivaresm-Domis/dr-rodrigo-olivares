@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 
-const BUPA_PROFILE_URL = "https://www.clinicabupasantiago.cl/nuestros-especialistas/dra-rodrigo-olivares-miranda";
+const BUPA_PROFILE_URL = "https://www.clinicabupasantiago.cl/nuestros-especialistas/dr-rodrigo-olivares-miranda";
 
 // TODO: reemplazar por la access key real de Web3Forms
 // (entrar a web3forms.com, ingresar Dr.olivaresm@gmail.com, "Create Access Key" — la entrega al instante)
