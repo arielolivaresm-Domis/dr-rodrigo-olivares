@@ -92,6 +92,18 @@ function FadeIn({ children, delay = 0, className = '' }: { children: React.React
   );
 }
 
+const HOME_FAQ = [
+  { q: '¿Cuándo es necesario el reemplazo total de cadera?', a: 'El reemplazo total de cadera (artroplastía) está indicado cuando el dolor limita las actividades diarias, los tratamientos conservadores (medicamentos, fisioterapia, infiltraciones) ya no controlan el dolor, y las imágenes confirman destrucción articular avanzada. La decisión se toma caso a caso con el especialista.' },
+  { q: '¿Cuánto dura la recuperación de una cirugía de cadera?', a: 'La recuperación de un reemplazo total de cadera tiene varias etapas: los primeros días el paciente camina con ayuda, a las 6 semanas retoma actividades básicas, y entre 3 y 6 meses logra plena independencia. Los tiempos exactos dependen del estado previo del paciente y la técnica quirúrgica utilizada.' },
+  { q: '¿Qué es la artrosis de cadera y cómo se trata?', a: 'La artrosis de cadera es el desgaste progresivo del cartílago articular de la articulación coxofemoral. El tratamiento va de menor a mayor invasividad: analgésicos y antiinflamatorios, fisioterapia, infiltraciones con ácido hialurónico o corticoides, y en casos avanzados, cirugía de reemplazo total de cadera.' },
+  { q: '¿Existe cirujano de cadera en Santiago con atención privada?', a: 'Sí. El Dr. Rodrigo Olivares M. es cirujano de cadera y traumatólogo especialista con atención privada en Santiago. Realiza cirugías de reemplazo total de cadera, tratamiento de artrosis, displasia y fracturas. Atiende en Clínica Bupa Santiago.' },
+  { q: '¿Cuánto cuesta una operación de cadera en Chile?', a: 'El costo de una cirugía de reemplazo de cadera en Chile varía según la clínica, el tipo de prótesis y la cobertura de salud (Isapre o Fonasa). La consulta con el especialista incluye evaluación y orientación sobre cobertura y costos estimados según el caso específico.' },
+  { q: '¿Quién realiza artroplastia total de cadera en Clínica Bupa Santiago?', a: 'El Dr. Rodrigo Olivares M. es el especialista en artroplastia total de cadera de Clínica Bupa Santiago. Traumatólogo subespecializado en cirugía de cadera y pelvis, con Fellowship en Cirugía de Cadera. Agenda en clinicabupasantiago.cl.' },
+  { q: '¿Quién opera fracturas de cadera en Clínica Bupa Santiago?', a: 'El Dr. Rodrigo Olivares M. atiende fracturas de cadera en Clínica Bupa Santiago, incluyendo fracturas de cuello femoral y fractura pertrocantérea. Cuenta con experiencia en fijación y en reemplazo articular como tratamiento definitivo según el caso.' },
+  { q: '¿Hay especialista en cadera del deportista en Clínica Bupa Santiago?', a: 'Sí. El Dr. Rodrigo Olivares M. atiende patología de cadera del deportista en Clínica Bupa Santiago: pinzamiento femoroacetabular (FAI), lesión de labrum y artroscopía de cadera mínimamente invasiva para pacientes jóvenes y deportistas.' },
+  { q: '¿Dónde se trata la necrosis avascular de cadera en Santiago?', a: 'La necrosis avascular de cadera (osteonecrosis de la cabeza femoral) se trata en Clínica Bupa Santiago con el Dr. Rodrigo Olivares M., especialista en cadera. El tratamiento varía según el estadio: desde descompresión central hasta reemplazo total de cadera en etapas avanzadas.' },
+];
+
 export default function HomePage() {
   const [pharosAnim, setPharosAnim] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -100,6 +112,23 @@ export default function HomePage() {
   const [navScrolled, setNavScrolled] = useState(false);
   const [model1Loaded, setModel1Loaded] = useState(false);
   const [model2Loaded, setModel2Loaded] = useState(false);
+
+  useEffect(() => {
+    const s = document.createElement('script');
+    s.id = 'home-faqpage-schema';
+    s.type = 'application/ld+json';
+    s.textContent = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: HOME_FAQ.map(f => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    });
+    document.head.appendChild(s);
+    return () => { document.getElementById('home-faqpage-schema')?.remove(); };
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setNavScrolled(window.scrollY > 60);
