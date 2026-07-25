@@ -14,6 +14,13 @@
 2. `git push`.
 3. Vercel deploya automático a drolivaresm.cl.
 
+## Terminología — copy y keywords (Chile)
+
+- **NUNCA** usar "ortopedista" como keyword ni en copy — no es el término habitual en Chile.
+- Términos correctos: **"cirujano de cadera"**, **"traumatólogo de cadera"**, **"traumatólogo especialista en cadera"**.
+- Aplica a: títulos, meta descriptions, schema alternateName/knowsAbout, texto de artículos, nuevos artículos del pivote de blog, llms.txt, y cualquier otro contenido del sitio.
+- Si un artículo futuro menciona "ortopedia" en contexto técnico (ej. `medicalSpecialty: "Orthopedic"` en schema.org) está permitido solo en ese campo exacto — nunca en copy visible.
+
 ## Info del proyecto
 - Repo: github.com/arielolivaresm-Domis/dr-rodrigo-olivares
 - Rama de producción: `main`
