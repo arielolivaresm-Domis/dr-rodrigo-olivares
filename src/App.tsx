@@ -1,4 +1,5 @@
-import { Routes, Route } from 'react-router-dom';
+import { useEffect, useRef } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import Cita from './pages/Cita';
 import CitaGracias from './pages/CitaGracias';
@@ -13,8 +14,27 @@ import CaderaDeportista from './pages/blog/CaderaDeportista';
 import FracturaCadera from './pages/blog/FracturaCadera';
 import NecrosisAvascularCadera from './pages/blog/NecrosisAvascularCadera';
 
+// Fires GA4 page_view on every SPA route change.
+// Skips the initial render — index.html's gtag('config') already covers it.
+function GATracker() {
+  const location = useLocation();
+  const isFirst = useRef(true);
+  useEffect(() => {
+    if (isFirst.current) { isFirst.current = false; return; }
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'page_view', {
+        page_location: window.location.href,
+        page_title: document.title,
+      });
+    }
+  }, [location.pathname]);
+  return null;
+}
+
 export default function App() {
   return (
+    <>
+    <GATracker />
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/cita" element={<Cita />} />
@@ -30,5 +50,6 @@ export default function App() {
       <Route path="/blog/fractura-cadera" element={<FracturaCadera />} />
       <Route path="/blog/necrosis-avascular-cadera" element={<NecrosisAvascularCadera />} />
     </Routes>
+    </>
   );
 }

@@ -6,6 +6,9 @@ export default function CitaGracias() {
   useEffect(() => {
     const prevTitle = document.title;
     document.title = "Solicitud recibida | Dr. Rodrigo Olivares M.";
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'generate_lead', { event_category: 'contact_form' });
+    }
     return () => { document.title = prevTitle; };
   }, []);
 
