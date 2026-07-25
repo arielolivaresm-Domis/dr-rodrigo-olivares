@@ -90,7 +90,7 @@ export default function ReemplazoTotalCadera() {
       <ul className="list-none space-y-2">
         <li>· Analgesia multimodal: combinación de medicamentos que reduce la necesidad de opioides y sus efectos adversos.</li>
         <li>· Movilización precoz: el paciente se levanta y da pasos el mismo día o al día siguiente de la cirugía.</li>
-        <li>· Alta hospitalaria en 2-4 días (antes eran 5-7).</li>
+        <li>· Alta hospitalaria en 24 horas (antes eran 3-5 días).</li>
         <li>· Menor tasa de complicaciones: trombosis, neumonía y pérdida muscular se reducen significativamente.</li>
       </ul>
 
