@@ -686,7 +686,8 @@ export default function HomePage() {
               <div className="mb-8">
                 <h4 className="font-medium text-lg mb-2 text-slate-900">Dónde estamos:</h4>
                 <p className="font-light text-slate-600">Clínica Bupa Santiago</p>
-                <p className="font-light text-slate-500">Av. Departamental 01455, Macul, Región Metropolitana</p>
+                <p className="font-light text-slate-500">Av. Departamental 1455, La Florida, Región Metropolitana</p>
+                <p className="font-light text-slate-400 text-sm mt-1">Accesible desde La Florida, Puente Alto, Macul y toda la Región Metropolitana.</p>
               </div>
               <div className="mb-10">
                 <h4 className="font-medium text-lg mb-2 text-slate-900">Horario de Funcionamiento:</h4>
