@@ -491,6 +491,7 @@ export default function HomePage() {
                   <li>· <span className="font-medium text-slate-700">Diagnóstico Preciso:</span> Uso de tecnología diagnóstica avanzada para identificar el origen exacto del dolor.</li>
                   <li>· <span className="font-medium text-slate-700">Tratamiento Personalizado:</span> No todos los casos requieren cirugía. Priorizamos la opción terapéutica más adecuada al estilo de vida de cada paciente.</li>
                   <li>· <span className="font-medium text-slate-700">Innovación Continua:</span> Aplicación de las últimas técnicas internacionales en cirugía ortopédica para garantizar resultados óptimos.</li>
+                  <li>· <span className="font-medium text-slate-700">Respaldo Científico:</span> Todos los tratamientos que recomiendo están basados en evidencia científica actualizada.</li>
                 </ul>
               </div>
               <p>
