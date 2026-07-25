@@ -491,6 +491,7 @@ export default function HomePage() {
                   <li>· <span className="font-medium text-slate-700">Diagnóstico Preciso:</span> Uso de tecnología diagnóstica avanzada para identificar el origen exacto del dolor.</li>
                   <li>· <span className="font-medium text-slate-700">Tratamiento Personalizado:</span> No todos los casos requieren cirugía. Priorizamos la opción terapéutica más adecuada al estilo de vida de cada paciente.</li>
                   <li>· <span className="font-medium text-slate-700">Innovación Continua:</span> Aplicación de las últimas técnicas internacionales en cirugía ortopédica para garantizar resultados óptimos.</li>
+                  <li>· <span className="font-medium text-slate-700">Respaldo Científico:</span> Todos los tratamientos que recomiendo están basados en evidencia científica actualizada.</li>
                 </ul>
               </div>
               <p>
@@ -686,7 +687,8 @@ export default function HomePage() {
               <div className="mb-8">
                 <h4 className="font-medium text-lg mb-2 text-slate-900">Dónde estamos:</h4>
                 <p className="font-light text-slate-600">Clínica Bupa Santiago</p>
-                <p className="font-light text-slate-500">Av. Departamental 01455, Macul, Región Metropolitana</p>
+                <p className="font-light text-slate-500">Av. Departamental 1455, La Florida, Región Metropolitana</p>
+                <p className="font-light text-slate-400 text-sm mt-1">Accesible desde La Florida, Puente Alto, Macul y toda la Región Metropolitana.</p>
               </div>
               <div className="mb-10">
                 <h4 className="font-medium text-lg mb-2 text-slate-900">Horario de Funcionamiento:</h4>

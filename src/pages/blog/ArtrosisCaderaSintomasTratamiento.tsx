@@ -18,7 +18,7 @@ const meta: BlogMeta = {
     },
     {
       question: '¿La artrosis de cadera tiene cura sin cirugía?',
-      answer: 'No existe una cura que regenere el cartílago desgastado, pero en etapas iniciales o moderadas el dolor y la función se controlan bien con analgésicos, fisioterapia, control de peso e infiltraciones. La cirugía se reserva para cuando estas medidas dejan de ser suficientes.',
+      answer: 'No existe una cura que regenere el cartílago desgastado, pero en etapas iniciales o moderadas el dolor y la función se controlan bien con manejo médico con analgesia, control del peso y ejercicios. La cirugía se reserva para cuando estas medidas dejan de ser suficientes.',
     },
     {
       question: '¿Qué actividades evitar si tengo artrosis de cadera?',
@@ -74,7 +74,6 @@ export default function ArtrosisCaderaSintomasTratamiento() {
       <p>El tratamiento avanza de menor a mayor invasividad según la etapa y el impacto en la calidad de vida:</p>
       <ul className="list-none space-y-2">
         <li>· <span className="font-medium text-slate-700">Manejo conservador:</span> analgésicos, antiinflamatorios, control de peso y fisioterapia orientada a fortalecer la musculatura periarticular.</li>
-        <li>· <span className="font-medium text-slate-700">Infiltraciones:</span> ácido hialurónico o corticoides para reducir el dolor en etapas moderadas.</li>
         <li>· <span className="font-medium text-slate-700">Cirugía de reemplazo total de cadera:</span> indicada cuando el dolor limita las actividades diarias y las imágenes muestran destrucción articular avanzada.</li>
       </ul>
 
