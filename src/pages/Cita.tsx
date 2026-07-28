@@ -24,9 +24,17 @@ export default function Cita() {
     const metaDescEl = document.querySelector('meta[name="description"]');
     const prevDescription = metaDescEl?.getAttribute('content') ?? null;
     metaDescEl?.setAttribute('content', 'Agenda una consulta con el Dr. Rodrigo Olivares M., cirujano de cadera en Santiago. Completa el formulario de contacto o agenda directamente en Clínica Bupa Santiago.');
+    const canonicalEl = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
+    const prevCanonical = canonicalEl?.getAttribute('href') ?? null;
+    canonicalEl?.setAttribute('href', 'https://www.drolivaresm.cl/cita');
+    const ogUrlEl = document.querySelector('meta[property="og:url"]') as HTMLMetaElement | null;
+    const prevOgUrl = ogUrlEl?.getAttribute('content') ?? null;
+    ogUrlEl?.setAttribute('content', 'https://www.drolivaresm.cl/cita');
     return () => {
       document.title = prevTitle;
       if (prevDescription !== null) metaDescEl?.setAttribute('content', prevDescription);
+      if (prevCanonical !== null) canonicalEl?.setAttribute('href', prevCanonical);
+      if (prevOgUrl !== null) ogUrlEl?.setAttribute('content', prevOgUrl);
     };
   }, []);
 

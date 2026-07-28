@@ -27,14 +27,36 @@ export function BlogLayout({ meta, children }: { meta: BlogMeta; children: React
   useEffect(() => {
     const prevTitle = document.title;
     document.title = meta.title;
-    const metaDescEl = document.querySelector('meta[name="description"]');
-    const prevDescription = metaDescEl?.getAttribute('content') ?? null;
+
+    const metaDescEl = document.querySelector('meta[name="description"]') as HTMLMetaElement | null;
+    const prevDesc = metaDescEl?.getAttribute('content') ?? null;
     metaDescEl?.setAttribute('content', meta.description);
+
+    const canonicalEl = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
+    const prevCanonical = canonicalEl?.getAttribute('href') ?? null;
+    canonicalEl?.setAttribute('href', url);
+
+    const ogUrlEl = document.querySelector('meta[property="og:url"]') as HTMLMetaElement | null;
+    const prevOgUrl = ogUrlEl?.getAttribute('content') ?? null;
+    ogUrlEl?.setAttribute('content', url);
+
+    const ogTitleEl = document.querySelector('meta[property="og:title"]') as HTMLMetaElement | null;
+    const prevOgTitle = ogTitleEl?.getAttribute('content') ?? null;
+    ogTitleEl?.setAttribute('content', headline);
+
+    const ogDescEl = document.querySelector('meta[property="og:description"]') as HTMLMetaElement | null;
+    const prevOgDesc = ogDescEl?.getAttribute('content') ?? null;
+    ogDescEl?.setAttribute('content', meta.description);
+
     return () => {
       document.title = prevTitle;
-      if (prevDescription !== null) metaDescEl?.setAttribute('content', prevDescription);
+      if (prevDesc !== null) metaDescEl?.setAttribute('content', prevDesc);
+      if (prevCanonical !== null) canonicalEl?.setAttribute('href', prevCanonical);
+      if (prevOgUrl !== null) ogUrlEl?.setAttribute('content', prevOgUrl);
+      if (prevOgTitle !== null) ogTitleEl?.setAttribute('content', prevOgTitle);
+      if (prevOgDesc !== null) ogDescEl?.setAttribute('content', prevOgDesc);
     };
-  }, [meta.title, meta.description]);
+  }, [meta.title, meta.description, url, headline]);
 
   useEffect(() => {
     const id = `article-schema-${meta.slug}`;

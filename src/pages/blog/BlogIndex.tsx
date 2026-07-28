@@ -63,7 +63,17 @@ export default function BlogIndex() {
   useEffect(() => {
     const prevTitle = document.title;
     document.title = 'Blog | Dr. Rodrigo Olivares M. — Cirujano de Cadera Santiago';
-    return () => { document.title = prevTitle; };
+    const canonicalEl = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
+    const prevCanonical = canonicalEl?.getAttribute('href') ?? null;
+    canonicalEl?.setAttribute('href', 'https://www.drolivaresm.cl/blog');
+    const ogUrlEl = document.querySelector('meta[property="og:url"]') as HTMLMetaElement | null;
+    const prevOgUrl = ogUrlEl?.getAttribute('content') ?? null;
+    ogUrlEl?.setAttribute('content', 'https://www.drolivaresm.cl/blog');
+    return () => {
+      document.title = prevTitle;
+      if (prevCanonical !== null) canonicalEl?.setAttribute('href', prevCanonical);
+      if (prevOgUrl !== null) ogUrlEl?.setAttribute('content', prevOgUrl);
+    };
   }, []);
 
   return (
