@@ -2,7 +2,7 @@ import { BlogLayout, type BlogMeta } from '../../components/blog/BlogLayout';
 
 const meta: BlogMeta = {
   slug: 'displasia-cadera-adulto',
-  title: 'Displasia de Cadera en el Adulto: Síntomas y Tratamiento | Dr. Rodrigo Olivares M.',
+  title: 'Displasia de Cadera en el Adulto: Síntomas y Tratamiento',
   description: 'Guía médica sobre la displasia de cadera en adultos: qué es, por qué causa dolor en jóvenes, diagnóstico, opciones de tratamiento y cuándo requiere cirugía.',
   badge: 'Patología de cadera',
   datePublished: '2026-07-12',

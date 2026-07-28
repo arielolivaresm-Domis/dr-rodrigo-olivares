@@ -2,7 +2,7 @@ import { BlogLayout, type BlogMeta } from '../../components/blog/BlogLayout';
 
 const meta: BlogMeta = {
   slug: 'cirugia-revision-cadera',
-  title: 'Cirugía de Revisión de Cadera en Clínica Bupa Santiago | Dr. Rodrigo Olivares M.',
+  title: 'Cirugía de Revisión de Cadera en Clínica Bupa Santiago',
   description: 'Qué es la cirugía de revisión de cadera, cuándo se necesita, causas de fallo de prótesis y cómo es el proceso quirúrgico. Dr. Rodrigo Olivares M. en Clínica Bupa Santiago.',
   badge: 'Cirugía de cadera',
   datePublished: '2026-07-14',

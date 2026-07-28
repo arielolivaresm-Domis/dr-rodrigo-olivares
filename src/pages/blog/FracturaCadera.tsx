@@ -2,7 +2,7 @@ import { BlogLayout, type BlogMeta } from '../../components/blog/BlogLayout';
 
 const meta: BlogMeta = {
   slug: 'fractura-cadera',
-  title: 'Fractura de Cadera: Tratamiento Quirúrgico en Clínica Bupa Santiago | Dr. Rodrigo Olivares M.',
+  title: 'Fractura de Cadera: Diagnóstico y Tratamiento Quirúrgico',
   description: 'Tipos de fractura de cadera, cuándo se opera, opciones quirúrgicas (fijación vs reemplazo) y recuperación. Dr. Rodrigo Olivares M. atiende fracturas de cadera en Clínica Bupa Santiago.',
   badge: 'Traumatología de cadera',
   datePublished: '2026-07-14',

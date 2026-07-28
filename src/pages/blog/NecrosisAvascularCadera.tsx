@@ -2,7 +2,7 @@ import { BlogLayout, type BlogMeta } from '../../components/blog/BlogLayout';
 
 const meta: BlogMeta = {
   slug: 'necrosis-avascular-cadera',
-  title: 'Necrosis Avascular de Cadera: Causas y Tratamiento | Dr. Rodrigo Olivares M.',
+  title: 'Necrosis Avascular de Cadera: Causas y Tratamiento',
   description: 'Qué es la necrosis avascular de cadera (osteonecrosis de la cabeza femoral), sus causas, estadios y opciones de tratamiento desde descompresión central hasta reemplazo total. Clínica Bupa Santiago.',
   badge: 'Patología de cadera',
   datePublished: '2026-07-14',

@@ -2,7 +2,7 @@ import { BlogLayout, type BlogMeta } from '../../components/blog/BlogLayout';
 
 const meta: BlogMeta = {
   slug: 'artrosis-cadera-sintomas-tratamiento',
-  title: 'Artrosis de Cadera: Síntomas y Tratamiento | Dr. Rodrigo Olivares M.',
+  title: 'Artrosis de Cadera: Síntomas y Tratamiento',
   description: 'Guía médica sobre artrosis de cadera: primeros síntomas, cómo se diagnostica y las opciones de tratamiento, desde manejo conservador hasta reemplazo total de cadera.',
   badge: 'Educación al paciente',
   datePublished: '2026-07-01',

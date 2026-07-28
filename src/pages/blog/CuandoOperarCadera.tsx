@@ -3,7 +3,7 @@ import { BlogLayout, type BlogMeta } from '../../components/blog/BlogLayout';
 
 const meta: BlogMeta = {
   slug: 'cuando-operar-cadera',
-  title: '¿Cuándo operar la cadera? Criterios para la cirugía | Dr. Rodrigo Olivares M.',
+  title: '¿Cuándo operar la cadera? Criterios para la cirugía',
   description: 'Guía médica sobre los criterios que determinan cuándo es el momento adecuado para operar la cadera: indicaciones, evaluación del especialista y qué esperar del proceso.',
   badge: 'Cirugía de cadera',
   datePublished: '2026-07-04',

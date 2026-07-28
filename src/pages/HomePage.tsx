@@ -131,6 +131,24 @@ export default function HomePage() {
   }, []);
 
   useEffect(() => {
+    const s = document.createElement('script');
+    s.id = 'home-videoobject-schema';
+    s.type = 'application/ld+json';
+    s.textContent = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'VideoObject',
+      name: 'Artrosis de Cadera — Qué es y cómo se trata | Dr. Rodrigo Olivares M.',
+      description: 'Explicación médica de la artrosis de cadera: causas, síntomas, diagnóstico y opciones de tratamiento incluyendo reemplazo total de cadera.',
+      thumbnailUrl: 'https://www.drolivaresm.cl/caradro.png',
+      contentUrl: 'https://www.drolivaresm.cl/VideoCadera.mp4',
+      uploadDate: '2026-06-27T00:00:00-04:00',
+      publisher: { '@id': 'https://www.drolivaresm.cl/#business' },
+    });
+    document.head.appendChild(s);
+    return () => { document.getElementById('home-videoobject-schema')?.remove(); };
+  }, []);
+
+  useEffect(() => {
     const onScroll = () => setNavScrolled(window.scrollY > 60);
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);

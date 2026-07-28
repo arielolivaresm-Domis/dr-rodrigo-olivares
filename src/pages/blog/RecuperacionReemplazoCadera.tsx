@@ -2,7 +2,7 @@ import { BlogLayout, type BlogMeta } from '../../components/blog/BlogLayout';
 
 const meta: BlogMeta = {
   slug: 'recuperacion-reemplazo-cadera',
-  title: 'Recuperación tras el Reemplazo de Cadera: Etapas y Plazos | Dr. Rodrigo Olivares M.',
+  title: 'Recuperación tras Reemplazo de Cadera: Etapas y Plazos',
   description: 'Guía completa sobre la recuperación después de un reemplazo total de cadera: qué esperar en cada etapa, plazos reales, precauciones y cuándo volver a las actividades cotidianas.',
   badge: 'Recuperación y rehabilitación',
   datePublished: '2026-07-07',

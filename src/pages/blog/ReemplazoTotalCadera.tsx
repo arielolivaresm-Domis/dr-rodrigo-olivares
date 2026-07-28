@@ -2,7 +2,7 @@ import { BlogLayout, type BlogMeta } from '../../components/blog/BlogLayout';
 
 const meta: BlogMeta = {
   slug: 'reemplazo-total-cadera-artroplastia',
-  title: 'Reemplazo Total de Cadera (Artroplastía): Qué es y Cómo Funciona | Dr. Rodrigo Olivares M.',
+  title: 'Reemplazo Total de Cadera: Qué es y Cómo Funciona',
   description: 'Guía médica sobre el reemplazo total de cadera o artroplastía: qué es, cómo se realiza, tipos de prótesis, duración y qué esperar antes y después de la cirugía.',
   badge: 'Cirugía de cadera',
   datePublished: '2026-07-10',

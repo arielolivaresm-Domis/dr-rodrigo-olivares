@@ -2,7 +2,7 @@ import { BlogLayout, type BlogMeta } from '../../components/blog/BlogLayout';
 
 const meta: BlogMeta = {
   slug: 'cadera-deportista-artroscopia',
-  title: 'Cadera del Deportista: Artroscopía y Pinzamiento Femoroacetabular | Dr. Rodrigo Olivares M.',
+  title: 'Cadera del Deportista: Artroscopía y Pinzamiento FAI',
   description: 'Guía sobre la patología de cadera en deportistas: pinzamiento femoroacetabular (FAI), lesión de labrum y artroscopía de cadera. Dr. Rodrigo Olivares M. en Clínica Bupa Santiago.',
   badge: 'Cadera del deportista',
   datePublished: '2026-07-14',
