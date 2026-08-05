@@ -9,6 +9,11 @@ export interface BlogFaqItem {
   answer: string;
 }
 
+export interface BlogHowToStep {
+  name: string;
+  text: string;
+}
+
 export interface BlogMeta {
   slug: string;
   title: string;
@@ -18,6 +23,7 @@ export interface BlogMeta {
   dateModified?: string;
   readingTime: string;
   faq?: BlogFaqItem[];
+  howTo?: { name: string; steps: BlogHowToStep[] };
 }
 
 export function BlogLayout({ meta, children }: { meta: BlogMeta; children: ReactNode }) {
@@ -95,6 +101,19 @@ export function BlogLayout({ meta, children }: { meta: BlogMeta; children: React
       });
     }
 
+    if (meta.howTo) {
+      graph.push({
+        '@type': 'HowTo',
+        name: meta.howTo.name,
+        step: meta.howTo.steps.map((s, i) => ({
+          '@type': 'HowToStep',
+          position: i + 1,
+          name: s.name,
+          text: s.text,
+        })),
+      });
+    }
+
     const s = document.createElement('script');
     s.id = id;
     s.type = 'application/ld+json';
@@ -120,7 +139,7 @@ export function BlogLayout({ meta, children }: { meta: BlogMeta; children: React
       <article className="container mx-auto px-6 md:px-12 py-16 max-w-3xl">
         <p className="text-xs tracking-[0.2em] uppercase text-brand-600 font-semibold mb-3">{meta.badge}</p>
         <p className="text-xs text-slate-400 mb-8">
-          {new Date(meta.datePublished).toLocaleDateString('es-CL', { year: 'numeric', month: 'long', day: 'numeric' })} · {meta.readingTime} de lectura
+          Por <span className="font-medium text-slate-500">Dr. Rodrigo Olivares M.</span> · {new Date(meta.datePublished).toLocaleDateString('es-CL', { year: 'numeric', month: 'long', day: 'numeric' })} · {meta.readingTime} de lectura
         </p>
         <div className="prose-blog space-y-6 text-slate-600 font-light leading-relaxed">
           {children}

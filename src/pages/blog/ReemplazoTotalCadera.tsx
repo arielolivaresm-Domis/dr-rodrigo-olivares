@@ -7,6 +7,16 @@ const meta: BlogMeta = {
   badge: 'Cirugía de cadera',
   datePublished: '2026-07-10',
   readingTime: '8 min',
+  howTo: {
+    name: 'Cómo se realiza un reemplazo total de cadera (artroplastía)',
+    steps: [
+      { name: 'Evaluación preoperatoria', text: 'Consulta con el especialista, radiografía de pelvis, exámenes de sangre y evaluación anestésica. Se define el tipo de prótesis y la vía de acceso quirúrgica según las características anatómicas y clínicas del paciente.' },
+      { name: 'Cirugía: acceso a la articulación', text: 'El cirujano accede a la articulación coxofemoral por vía anterior (DAA) o posterior. El abordaje anterior no corta músculos, lo que reduce el tiempo de recuperación. El abordaje posterior puede ser preferible en casos anatómicamente complejos.' },
+      { name: 'Extracción de las superficies articulares dañadas', text: 'Se retira la cabeza del fémur y se prepara el acetábulo (copa de la cadera) para recibir los nuevos componentes protésicos.' },
+      { name: 'Implantación de la prótesis', text: 'Se instalan los componentes: cúpula acetabular, inserto (polietileno o cerámica) y vástago femoral con cabeza protésica. Las prótesis modernas están diseñadas para durar más de 20 años.' },
+      { name: 'Movilización precoz con protocolo ERAS', text: 'Al día siguiente de la cirugía el paciente ya camina asistido. El protocolo ERAS (Enhanced Recovery After Surgery) reduce el dolor, el tiempo de hospitalización y acelera la recuperación funcional.' },
+    ],
+  },
   faq: [
     {
       question: '¿Qué es el reemplazo total de cadera?',

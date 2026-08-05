@@ -7,6 +7,16 @@ const meta: BlogMeta = {
   badge: 'Recuperación y rehabilitación',
   datePublished: '2026-07-07',
   readingTime: '7 min',
+  howTo: {
+    name: 'Cómo es la recuperación tras un reemplazo total de cadera',
+    steps: [
+      { name: 'Primeras 24-48 horas: movilización precoz', text: 'Con protocolo ERAS, el paciente se levanta y da los primeros pasos asistido por kinesiólogo el mismo día o al día siguiente de la cirugía. Se inicia analgesia multimodal para minimizar el dolor.' },
+      { name: 'Alta hospitalaria (día 2-4): traslado a domicilio', text: 'La mayoría de los pacientes recibe el alta entre el segundo y cuarto día postoperatorio. Se va a casa caminando con bastón o andador. Se entregan indicaciones de kinesioterapia domiciliaria y restricciones de movimiento.' },
+      { name: 'Semanas 1-4: recuperación en casa', text: 'El paciente camina con bastón o andador dentro y fuera del hogar. Comienza kinesioterapia ambulatoria 2-3 veces por semana. Se evita cruzar las piernas, doblar la cadera más de 90° y girar el pie hacia adentro.' },
+      { name: 'Semanas 4-8: mayor independencia', text: 'La mayoría puede abandonar el bastón o andador progresivamente. Se retoma la conducción de vehículo automático (según criterio del especialista, habitualmente entre la semana 4 y 6). Actividades sedentarias y de oficina son posibles.' },
+      { name: 'Meses 3-6: retorno a actividades normales', text: 'Plena autonomía para las actividades cotidianas. Actividades de bajo impacto como natación, bicicleta o caminata larga están autorizadas. El especialista evalúa el retorno al deporte o actividades físicas más exigentes.' },
+    ],
+  },
   faq: [
     {
       question: '¿Cuánto tiempo dura la recuperación de un reemplazo de cadera?',

@@ -149,6 +149,24 @@ export default function HomePage() {
   }, []);
 
   useEffect(() => {
+    const s = document.createElement('script');
+    s.id = 'home-speakable-schema';
+    s.type = 'application/ld+json';
+    s.textContent = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: 'Dr. Rodrigo Olivares M. | Cirujano de Cadera Santiago',
+      url: 'https://www.drolivaresm.cl/',
+      speakable: {
+        '@type': 'SpeakableSpecification',
+        cssSelector: ['h1', 'h2', 'meta[name="description"]'],
+      },
+    });
+    document.head.appendChild(s);
+    return () => { document.getElementById('home-speakable-schema')?.remove(); };
+  }, []);
+
+  useEffect(() => {
     const onScroll = () => setNavScrolled(window.scrollY > 60);
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
@@ -271,7 +289,7 @@ export default function HomePage() {
             <div className="absolute inset-0 bg-gradient-to-r from-brand-900 via-brand-900/40 to-transparent z-10"></div>
             <div className="absolute inset-0 bg-gradient-to-t from-brand-900/50 via-transparent to-transparent z-10"></div>
             <img
-              src="/DrOlivares.png"
+              src="/DrOlivares.webp"
               alt="Dr. Rodrigo Olivares Miranda"
               className="w-full h-full object-cover object-top"
               referrerPolicy="no-referrer"
@@ -340,7 +358,7 @@ export default function HomePage() {
 
           <div className="mt-24 grid grid-cols-1 md:grid-cols-4 gap-8 items-end border-t border-brand-800 pt-8">
             <div className="flex items-center gap-4">
-              <img src="/caradro.png" alt="Profile" className="w-16 h-16 rounded-full object-cover" referrerPolicy="no-referrer" />
+              <img src="/caradro.webp" alt="Profile" className="w-16 h-16 rounded-full object-cover" referrerPolicy="no-referrer" />
               <div>
                 <p className="text-xs text-brand-100 tracking-wider">CLÍNICA BUPA SANTIAGO</p>
                 <p className="font-medium text-white">Cirugía de Cadera</p>
@@ -471,7 +489,7 @@ export default function HomePage() {
                 <div className="absolute inset-0 border-2 border-brand-500/50 rounded-tl-[10rem] rounded-br-[10rem] rounded-tr-3xl rounded-bl-3xl -translate-x-4 translate-y-4 z-0"></div>
                 <div className="relative w-full h-full rounded-tl-[10rem] rounded-br-[10rem] rounded-tr-3xl rounded-bl-3xl overflow-hidden z-10 bg-brand-900">
                   <img
-                    src="/DrOlivares.png"
+                    src="/DrOlivares.webp"
                     alt="Dr. Rodrigo Olivares"
                     className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500 mix-blend-luminosity hover:mix-blend-normal"
                     referrerPolicy="no-referrer"
@@ -746,7 +764,7 @@ export default function HomePage() {
       <footer className="bg-slate-50 text-slate-900 py-8 border-t border-slate-200">
         <div className="container mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex items-center gap-4">
-            <img src="/caradro.png" alt="Dr. Rodrigo Olivares" className="w-10 h-10 rounded-full object-cover" referrerPolicy="no-referrer" />
+            <img src="/caradro.webp" alt="Dr. Rodrigo Olivares" className="w-10 h-10 rounded-full object-cover" referrerPolicy="no-referrer" />
             <div>
               <p className="font-medium text-sm text-slate-900">Dr. Rodrigo Olivares Miranda</p>
               <p className="text-xs text-slate-500 uppercase tracking-wider">Cirugía de Cadera</p>

@@ -7,6 +7,16 @@ const meta: BlogMeta = {
   badge: 'Traumatología de cadera',
   datePublished: '2026-07-14',
   readingTime: '7 min',
+  howTo: {
+    name: 'Cómo se trata una fractura de cadera quirúrgicamente',
+    steps: [
+      { name: 'Evaluación y estabilización del paciente', text: 'Radiografía de pelvis AP y cadera lateral para clasificar la fractura. Exámenes preoperatorios y evaluación del riesgo anestésico. El objetivo es operar dentro de las primeras 24-48 horas.' },
+      { name: 'Elección del tratamiento quirúrgico', text: 'Según el tipo de fractura y las características del paciente: fijación con clavo cefalomedular (fracturas pertrocantéreas), hemiartroplastia o artroplastia total (fracturas de cuello femoral desplazadas en adultos mayores).' },
+      { name: 'Cirugía', text: 'Reducción de la fractura y fijación con implante, o reemplazo articular según la indicación. La cirugía dura entre 60 y 120 minutos bajo anestesia raquídea o general.' },
+      { name: 'Movilización precoz (protocolo ERAS)', text: 'El paciente se levanta y da los primeros pasos dentro de las primeras 24-48 horas postoperatorias con apoyo de kinesiólogo. La movilización precoz reduce complicaciones como trombosis y neumonía.' },
+      { name: 'Rehabilitación y alta', text: 'Kinesioterapia intrahospitalaria y luego ambulatoria. La mayoría de los pacientes recibe el alta a los 3-5 días. La recuperación funcional completa toma entre 3 y 6 meses con rehabilitación supervisada.' },
+    ],
+  },
   faq: [
     {
       question: '¿Siempre se opera una fractura de cadera?',
