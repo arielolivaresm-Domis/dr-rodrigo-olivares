@@ -297,6 +297,7 @@ export default function HomePage() {
             >
               Rodrigo <br />
               <span className="italic">Olivares Miranda</span>
+              <span className="sr-only"> — Cirujano de Cadera Santiago</span>
             </motion.h1>
 
             <motion.div
