@@ -7,6 +7,16 @@ const meta: BlogMeta = {
   badge: 'Cadera del deportista',
   datePublished: '2026-07-14',
   readingTime: '7 min',
+  howTo: {
+    name: 'Cómo se trata el pinzamiento femoroacetabular (FAI) mediante artroscopía',
+    steps: [
+      { name: 'Diagnóstico clínico: test de pinzamiento positivo', text: 'El especialista reproduce el dolor con flexión + rotación interna de la cadera (test de pinzamiento anterior positivo). El deportista refiere dolor en la ingle con movimientos de alta flexión (sentadilla, giro, patada). Historia de dolor crónico en ingle sin trauma evidente.' },
+      { name: 'Estudio imagenológico: radiografía + artro-RM', text: 'La radiografía de pelvis muestra la deformidad CAM o PINCER. La artro-RM (resonancia con contraste intraarticular) evalúa el estado del labrum y el cartílago en detalle — define si hay reparación posible o se requiere resección.' },
+      { name: 'Decisión quirúrgica: artroscopía de cadera', text: 'Si hay FAI sintomático con lesión de labrum confirmada y el tratamiento conservador (fisioterapia de cadera, modificación de actividad) no controló los síntomas en 3-6 meses, la artroscopía es la indicación de elección en pacientes jóvenes con cartílago conservado.' },
+      { name: 'Artroscopía: osteoplastia + tratamiento del labrum', text: 'Bajo anestesia, con 2-3 portales de 1 cm. Se realiza osteoplastia (resección de la deformidad CAM o reducción del exceso PINCER) y reparación o resección del labrum según su estado. Cirugía ambulatoria o con 1 noche de hospitalización.' },
+      { name: 'Rehabilitación y retorno al deporte', text: 'Semanas 1-6: descarga parcial con muletas, fisioterapia de activación muscular. Meses 2-3: carga completa, fortalecimiento progresivo. Retorno al deporte: 3-4 meses con resección de labrum, 4-6 meses con reparación. Requiere evaluación funcional antes del alta deportiva.' },
+    ],
+  },
   faq: [
     {
       question: '¿Qué es el pinzamiento femoroacetabular (FAI)?',

@@ -7,6 +7,16 @@ const meta: BlogMeta = {
   badge: 'Cirugía de cadera',
   datePublished: '2026-07-14',
   readingTime: '7 min',
+  howTo: {
+    name: 'Cómo es el proceso de cirugía de revisión de cadera',
+    steps: [
+      { name: 'Identificar el motivo del fallo de la prótesis', text: 'El dolor persistente o nuevo en una cadera operada requiere evaluación especializada. Las causas más frecuentes son aflojamiento aséptico, infección periprotésica, desgaste del par de fricción, inestabilidad recurrente o fractura periprotésica. Cada causa tiene un manejo distinto.' },
+      { name: 'Estudio diagnóstico: imágenes + laboratorio', text: 'Radiografía comparativa con imágenes previas para detectar aflojamiento o migración del implante. Hemograma, VHS y PCR para descartar infección. Gammagrafía ósea o PET-scan en casos dudosos. Si se sospecha infección: punción articular con cultivo.' },
+      { name: 'Planificación quirúrgica', text: 'El cirujano planifica qué componentes revisar (acetabular, femoral o ambos), qué implantes de revisión usar, y si se necesita injerto óseo para reconstruir el stock óseo perdido. La planificación preoperatoria detallada es crítica en cirugía de revisión.' },
+      { name: 'Cirugía de revisión', text: 'Extracción del implante afectado, desbridamiento del tejido comprometido y colocación del nuevo componente. En infección: puede requerir dos tiempos (extracción + espaciador de cemento antibiótico → reimplante en segunda cirugía). Mayor duración e instrumentación que la cirugía primaria.' },
+      { name: 'Recuperación post-revisión', text: 'Más lenta y exigente que la artroplastia primaria. El apoyo puede estar restringido semanas si hay pérdida ósea significativa. Rehabilitación kinésica supervisada desde el primer día. Los controles imagenológicos son más frecuentes en el primer año.' },
+    ],
+  },
   faq: [
     {
       question: '¿Qué es la cirugía de revisión de cadera?',

@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { BlogLayout, type BlogMeta } from '../../components/blog/BlogLayout';
 
 const meta: BlogMeta = {
@@ -8,6 +7,16 @@ const meta: BlogMeta = {
   badge: 'Cirugía de cadera',
   datePublished: '2026-07-04',
   readingTime: '7 min',
+  howTo: {
+    name: 'Cómo evaluar si necesita una cirugía de cadera',
+    steps: [
+      { name: 'Consulta inicial con el especialista', text: 'El traumatólogo de cadera realiza una anamnesis completa (historia del dolor, evolución, tratamientos previos) y un examen físico que evalúa el rango de movimiento, la marcha y las maniobras específicas de la articulación.' },
+      { name: 'Estudio imagenológico', text: 'Se solicita una radiografía de pelvis (proyección anteroposterior) y lateral de cadera afectada. Permite clasificar el grado de artrosis según la escala Kellgren-Lawrence (I al IV). En casos específicos se complementa con resonancia magnética.' },
+      { name: 'Evaluación del fracaso del tratamiento conservador', text: 'Si el dolor persiste a pesar de haber completado al menos 3-6 meses de tratamiento médico (analgésicos, antiinflamatorios, fisioterapia) e infiltraciones, se considera que el manejo conservador ha fallado.' },
+      { name: 'Evaluación del impacto en calidad de vida', text: 'Se cuantifica el impacto funcional con escalas estandarizadas (Harris Hip Score, HOOS). Cuando el dolor limita actividades básicas diarias —caminar menos de 500 metros, dificultad para vestirse, dolor nocturno— la indicación quirúrgica se fortalece.' },
+      { name: 'Evaluación preoperatoria y decisión compartida', text: 'Se realiza una evaluación cardiovascular, metabólica y de riesgo anestésico. El médico explica al paciente los riesgos, beneficios y alternativas. La decisión final es siempre compartida entre el especialista y el paciente.' },
+    ],
+  },
   faq: [
     {
       question: '¿Cómo sé si necesito una operación de cadera?',
@@ -32,57 +41,7 @@ const meta: BlogMeta = {
   ],
 };
 
-const HOWTO_SCHEMA = {
-  '@context': 'https://schema.org',
-  '@type': 'HowTo',
-  name: 'Cómo evaluar si necesita una cirugía de cadera',
-  description: 'Proceso de evaluación médica para determinar si la cirugía de reemplazo de cadera es la indicación correcta.',
-  step: [
-    {
-      '@type': 'HowToStep',
-      position: 1,
-      name: 'Consulta inicial con el especialista',
-      text: 'El traumatólogo de cadera realiza una anamnesis completa (historia del dolor, evolución, tratamientos previos) y un examen físico que evalúa el rango de movimiento, la marcha y las maniobras específicas de la articulación.',
-    },
-    {
-      '@type': 'HowToStep',
-      position: 2,
-      name: 'Estudio imagenológico',
-      text: 'Se solicita una radiografía de pelvis (proyección anteroposterior) y lateral de cadera afectada. Permite clasificar el grado de artrosis según la escala Kellgren-Lawrence (I al IV). En casos específicos se complementa con resonancia magnética.',
-    },
-    {
-      '@type': 'HowToStep',
-      position: 3,
-      name: 'Evaluación del fracaso del tratamiento conservador',
-      text: 'Si el dolor persiste a pesar de haber completado al menos 3-6 meses de tratamiento médico (analgésicos, antiinflamatorios, fisioterapia) e infiltraciones, se considera que el manejo conservador ha fallado.',
-    },
-    {
-      '@type': 'HowToStep',
-      position: 4,
-      name: 'Evaluación del impacto en calidad de vida',
-      text: 'Se cuantifica el impacto funcional con escalas estandarizadas (Harris Hip Score, HOOS). Cuando el dolor limita actividades básicas diarias —caminar menos de 500 metros, dificultad para vestirse, dolor nocturno— la indicación quirúrgica se fortalece.',
-    },
-    {
-      '@type': 'HowToStep',
-      position: 5,
-      name: 'Evaluación preoperatoria y decisión compartida',
-      text: 'Se realiza una evaluación cardiovascular, metabólica y de riesgo anestésico. El médico explica al paciente los riesgos, beneficios y alternativas. La decisión final es siempre compartida entre el especialista y el paciente.',
-    },
-  ],
-};
-
 export default function CuandoOperarCadera() {
-  useEffect(() => {
-    const id = 'howto-cadera-schema';
-    document.getElementById(id)?.remove();
-    const s = document.createElement('script');
-    s.id = id;
-    s.type = 'application/ld+json';
-    s.textContent = JSON.stringify(HOWTO_SCHEMA);
-    document.head.appendChild(s);
-    return () => { document.getElementById(id)?.remove(); };
-  }, []);
-
   return (
     <BlogLayout meta={meta}>
       <h1 className="font-serif text-3xl md:text-4xl text-slate-900 mb-2">

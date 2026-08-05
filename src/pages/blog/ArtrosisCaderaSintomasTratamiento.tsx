@@ -7,6 +7,16 @@ const meta: BlogMeta = {
   badge: 'Educación al paciente',
   datePublished: '2026-07-01',
   readingTime: '6 min',
+  howTo: {
+    name: 'Cómo se diagnostica y trata la artrosis de cadera',
+    steps: [
+      { name: 'Reconocer los síntomas iniciales', text: 'Dolor en la ingle o el muslo al caminar, subir escaleras o levantarse. Rigidez matinal de pocos minutos. Dificultad para cruzar las piernas o calzarse. Si estos síntomas persisten más de 2-4 semanas, consultar al especialista.' },
+      { name: 'Consulta con traumatólogo de cadera', text: 'El especialista evalúa el rango de movimiento de la cadera, el patrón de marcha y reproduce el dolor con maniobras específicas (rotación interna y externa). La historia clínica y el examen físico orientan el diagnóstico.' },
+      { name: 'Diagnóstico con radiografía de pelvis', text: 'La radiografía anteroposterior de pelvis muestra el grado de desgaste del cartílago articular según la escala de Kellgren-Lawrence (grado I al IV). El grado III-IV indica artrosis avanzada. En casos específicos se solicita resonancia magnética.' },
+      { name: 'Tratamiento conservador', text: 'En grados I-II: analgesia con paracetamol o AINEs, fisioterapia para fortalecer musculatura periarticular, control del peso, actividad de bajo impacto. Las infiltraciones de corticoides o ácido hialurónico pueden aliviar el dolor temporalmente.' },
+      { name: 'Evaluación quirúrgica cuando el conservador falla', text: 'Si el dolor persiste tras 3-6 meses de tratamiento médico, limita actividades básicas y la radiografía muestra grado III-IV, el reemplazo total de cadera es la indicación. El momento lo determina el especialista según la evolución individual.' },
+    ],
+  },
   faq: [
     {
       question: '¿Cuáles son los primeros síntomas de la artrosis de cadera?',

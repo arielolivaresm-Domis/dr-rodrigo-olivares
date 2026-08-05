@@ -7,6 +7,16 @@ const meta: BlogMeta = {
   badge: 'Patología de cadera',
   datePublished: '2026-07-12',
   readingTime: '7 min',
+  howTo: {
+    name: 'Cómo se diagnostica y trata la displasia de cadera en adultos',
+    steps: [
+      { name: 'Sospecha diagnóstica: dolor de cadera en adulto joven', text: 'Dolor en la ingle en paciente de 20-45 años, especialmente con actividad física. Sin artrosis evidente en radiografía simple pero con dolor persistente. Antecedente de displasia de cadera en la infancia o familiar directo con displasia.' },
+      { name: 'Diagnóstico radiológico: medición del ángulo LCE', text: 'Radiografía de pelvis anteroposterior con medición del ángulo de cobertura lateral (LCE). Ángulo menor a 25° confirma displasia. El índice de extrusión acetabular cuantifica qué porcentaje de la cabeza femoral queda sin cobertura.' },
+      { name: 'Evaluación del estado del labrum y cartílago (artro-RM)', text: 'La resonancia magnética con artro-RM define el estado del labrum (rotura, degeneración) y del cartílago articular. Determina si el cartílago está preservado (candidato a cirugía correctora) o dañado (encamina hacia reemplazo articular).' },
+      { name: 'Cirugía correctora: osteotomía periacetabular (PAO)', text: 'En pacientes jóvenes con cartílago conservado: PAO (osteotomía periacetabular de Bernese). Reorienta el acetábulo para mejorar la cobertura de la cabeza femoral. Corrección de la causa de fondo, no solo del síntoma. Hospitalización 4-5 días, recuperación 4-6 meses.' },
+      { name: 'Reemplazo total si hay artrosis secundaria', text: 'Cuando la displasia ya generó artrosis avanzada (grado III-IV de Kellgren-Lawrence), la cirugía correctora no es útil. El reemplazo total de cadera es el tratamiento definitivo, técnicamente más demandante que en cadera normal por la anatomía alterada.' },
+    ],
+  },
   faq: [
     {
       question: '¿Qué es la displasia de cadera en adultos?',

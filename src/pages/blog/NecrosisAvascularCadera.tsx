@@ -7,6 +7,16 @@ const meta: BlogMeta = {
   badge: 'Patología de cadera',
   datePublished: '2026-07-14',
   readingTime: '7 min',
+  howTo: {
+    name: 'Cómo se diagnostica y trata la necrosis avascular de cadera',
+    steps: [
+      { name: 'Sospecha clínica: dolor sin artrosis evidente', text: 'Dolor en la ingle en un paciente joven, especialmente con factores de riesgo (uso de corticoides, consumo excesivo de alcohol, antecedente de fractura o luxación de cadera). La radiografía puede ser normal en etapas iniciales — no descarta el diagnóstico.' },
+      { name: 'Resonancia magnética: diagnóstico temprano', text: 'La RM es el estudio de elección para detectar necrosis avascular antes del colapso. Muestra el área de necrosis y permite clasificar el estadio (ARCO I al IV). El diagnóstico en estadios I-II abre la puerta a tratamientos de preservación articular.' },
+      { name: 'Clasificación por estadio (ARCO)', text: 'ARCO I-II: sin colapso visible, candidato a descompresión central. ARCO III: inicio de colapso de la cabeza femoral. ARCO IV: colapso establecido con daño del cartílago acetabular — indicación de reemplazo total.' },
+      { name: 'Tratamiento según estadio', text: 'Estadios I-II: descompresión central (perforación del cuello femoral para mejorar el flujo) más cese del factor causante. Estadios III-IV con síntomas severos: reemplazo total de cadera, el tratamiento definitivo cuando la cabeza femoral ha colapsado.' },
+      { name: 'Seguimiento y control del factor causante', text: 'Reducir o suspender corticoides si es posible, eliminar el alcohol, tratar la enfermedad de base. Control con RM a los 3-6 meses para monitorear progresión. En pacientes de alto riesgo, vigilancia periódica aunque estén asintomáticos.' },
+    ],
+  },
   faq: [
     {
       question: '¿Qué es la necrosis avascular de cadera?',
