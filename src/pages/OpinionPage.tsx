@@ -17,10 +17,12 @@ export default function OpinionPage() {
   const contentRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
 
+  // Desktop: the spotlight tracks the real cursor.
   useEffect(() => {
     const content = contentRef.current;
     const overlay = overlayRef.current;
     if (!content || !overlay) return;
+    if (window.matchMedia('(pointer: coarse)').matches) return;
 
     const setSpot = (clientX: number, clientY: number) => {
       const rect = content.getBoundingClientRect();
@@ -42,8 +44,9 @@ export default function OpinionPage() {
     };
   }, []);
 
-  // On touch devices there's no real cursor, so the reveal plays once as an
-  // automatic sweep the first time the visitor scrolls, then fades out.
+  // Touch devices have no cursor: the reveal plays as a one-shot sweep
+  // triggered only by scrolling — down on the way in, reversed (up) if the
+  // visitor scrolls back up. Tapping/clicking never triggers it.
   useEffect(() => {
     const content = contentRef.current;
     const overlay = overlayRef.current;
@@ -53,16 +56,23 @@ export default function OpinionPage() {
     const duration = 1600;
     const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
-    const runSweep = () => {
+    let sweeping = false;
+    let lastDirection: 'down' | 'up' | null = null;
+    let lastScrollY = window.scrollY;
+
+    const runSweep = (direction: 'down' | 'up') => {
+      sweeping = true;
       const rect = content.getBoundingClientRect();
-      const startY = rect.height * 0.12;
-      const endY = rect.height * 0.88;
+      const topY = rect.height * 0.12;
+      const bottomY = rect.height * 0.88;
+      const fromY = direction === 'down' ? topY : bottomY;
+      const toY = direction === 'down' ? bottomY : topY;
       const x = rect.width * 0.5;
       const start = performance.now();
 
       const step = (now: number) => {
         const t = Math.min((now - start) / duration, 1);
-        const y = startY + (endY - startY) * ease(t);
+        const y = fromY + (toY - fromY) * ease(t);
         overlay.style.setProperty('--spot-x', `${x}px`);
         overlay.style.setProperty('--spot-y', `${y}px`);
         overlay.style.opacity = '1';
@@ -70,14 +80,20 @@ export default function OpinionPage() {
           requestAnimationFrame(step);
         } else {
           overlay.style.opacity = '0';
+          sweeping = false;
         }
       };
       requestAnimationFrame(step);
     };
 
     const handleScroll = () => {
-      window.removeEventListener('scroll', handleScroll);
-      runSweep();
+      const currentY = window.scrollY;
+      const direction = currentY > lastScrollY ? 'down' : currentY < lastScrollY ? 'up' : null;
+      lastScrollY = currentY;
+      if (direction && direction !== lastDirection && !sweeping) {
+        lastDirection = direction;
+        runSweep(direction);
+      }
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
