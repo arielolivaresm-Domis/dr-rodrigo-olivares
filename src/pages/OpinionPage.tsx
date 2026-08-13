@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import { Star } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { ArrowLeft, Star } from 'lucide-react';
 
 const GOOGLE_REVIEW_URL = 'https://g.page/r/CdzR6hYoj-f2EBM/review';
 const TOP_DOCTORS_URL = 'https://www.topdoctors.cl/reviewme/cm9kcmlnby1hbmRyZXMtb2xpdmFyZXMtbWlyYW5kYSYmcHBsLXBob25lJiY3/';
@@ -83,7 +84,14 @@ export default function OpinionPage() {
         </div>
       </div>
 
-      <p className="text-xs text-slate-400 mt-16">
+      <Link
+        to="/"
+        className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-brand-600 transition-colors mt-16"
+      >
+        <ArrowLeft size={16} /> Volver al sitio principal
+      </Link>
+
+      <p className="text-xs text-slate-400 mt-6">
         Dr. Rodrigo Olivares M. · Cirujano de Cadera
       </p>
     </div>
