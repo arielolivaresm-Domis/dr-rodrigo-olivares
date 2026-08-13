@@ -87,10 +87,12 @@ export default function OpinionPage() {
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 z-0 opacity-0 transition-opacity duration-300"
           style={{
-            backgroundImage: 'url(/hip-xray.svg)',
-            backgroundSize: '200px auto',
+            backgroundImage: 'url(/Medical_X-ray_of_human_hip_202608131442.jpeg)',
+            backgroundSize: '260px auto',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center',
+            mixBlendMode: 'screen',
+            filter: 'brightness(1.15) contrast(1.1)',
             WebkitMaskImage: 'radial-gradient(110px circle at var(--spot-x, 50%) var(--spot-y, 50%), black 0%, black 55%, transparent 100%)',
             maskImage: 'radial-gradient(110px circle at var(--spot-x, 50%) var(--spot-y, 50%), black 0%, black 55%, transparent 100%)',
           }}
