@@ -223,6 +223,12 @@ export default function HomePage() {
             >
               Blog
             </Link>
+            <Link
+              to="/opinion"
+              className={`text-sm transition-colors ${navScrolled ? 'text-slate-600 hover:text-brand-600' : 'text-white/75 hover:text-white'}`}
+            >
+              Opinión
+            </Link>
           </div>
 
           <div className="flex items-center gap-3">
@@ -267,6 +273,13 @@ export default function HomePage() {
                   className="text-left text-slate-700 py-3 border-b border-slate-100 last:border-0 text-sm font-medium"
                 >
                   Blog
+                </Link>
+                <Link
+                  to="/opinion"
+                  onClick={() => setMenuOpen(false)}
+                  className="text-left text-slate-700 py-3 border-b border-slate-100 last:border-0 text-sm font-medium"
+                >
+                  Opinión
                 </Link>
                 <a
                   href={BUPA_URL}
