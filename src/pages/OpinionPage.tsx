@@ -31,9 +31,11 @@ export default function OpinionPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans flex flex-col items-center justify-center px-6 py-12">
+    <div className="min-h-screen bg-white text-slate-900 font-sans flex flex-col items-center justify-center px-6 py-12">
       <div className="w-full max-w-md flex flex-col items-center text-center">
-        <Star size={40} className="text-brand-600 mb-6" fill="currentColor" />
+        <div className="w-14 h-14 rounded-sm flex items-center justify-center bg-brand-900 mb-6">
+          <Star size={26} className="text-white" fill="currentColor" />
+        </div>
 
         <h1 className="font-serif text-3xl md:text-4xl text-slate-900 mb-3">
           ¿Cómo fue tu experiencia?
@@ -47,33 +49,36 @@ export default function OpinionPage() {
             href={GOOGLE_REVIEW_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full flex items-center justify-center gap-3 text-white font-medium tracking-wide py-5 rounded-sm shadow-lg transition-transform active:scale-[0.98]"
-            style={{ backgroundColor: '#EA4335' }}
+            className="w-full flex items-center gap-4 border border-slate-200 bg-white py-5 px-5 rounded-sm hover:border-brand-500 hover:shadow-lg transition-all group"
           >
-            <Star size={20} fill="currentColor" />
-            Google
+            <span className="w-10 h-10 rounded-sm flex items-center justify-center shrink-0" style={{ backgroundColor: '#EA4335' }}>
+              <Star size={18} className="text-white" fill="currentColor" />
+            </span>
+            <span className="font-medium tracking-wide text-slate-900 group-hover:text-brand-700">Google</span>
           </a>
 
           <a
             href={TOP_DOCTORS_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full flex items-center justify-center gap-3 text-white font-medium tracking-wide py-5 rounded-sm shadow-lg transition-transform active:scale-[0.98]"
-            style={{ backgroundColor: '#0057B7' }}
+            className="w-full flex items-center gap-4 border border-slate-200 bg-white py-5 px-5 rounded-sm hover:border-brand-500 hover:shadow-lg transition-all group"
           >
-            <Star size={20} fill="currentColor" />
-            Top Doctors
+            <span className="w-10 h-10 rounded-sm flex items-center justify-center shrink-0" style={{ backgroundColor: '#0057B7' }}>
+              <Star size={18} className="text-white" fill="currentColor" />
+            </span>
+            <span className="font-medium tracking-wide text-slate-900 group-hover:text-brand-700">Top Doctors</span>
           </a>
 
           <a
             href={DOCTORALIA_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full flex items-center justify-center gap-3 text-white font-medium tracking-wide py-5 rounded-sm shadow-lg transition-transform active:scale-[0.98]"
-            style={{ backgroundColor: '#00A651' }}
+            className="w-full flex items-center gap-4 border border-slate-200 bg-white py-5 px-5 rounded-sm hover:border-brand-500 hover:shadow-lg transition-all group"
           >
-            <Star size={20} fill="currentColor" />
-            Doctoralia
+            <span className="w-10 h-10 rounded-sm flex items-center justify-center shrink-0" style={{ backgroundColor: '#00A651' }}>
+              <Star size={18} className="text-white" fill="currentColor" />
+            </span>
+            <span className="font-medium tracking-wide text-slate-900 group-hover:text-brand-700">Doctoralia</span>
           </a>
         </div>
       </div>
