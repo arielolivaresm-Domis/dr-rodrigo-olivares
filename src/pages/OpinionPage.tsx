@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Star } from 'lucide-react';
 
-const GOOGLE_REVIEW_URL = 'PLACEHOLDER_GOOGLE';
+const GOOGLE_REVIEW_URL = 'https://g.page/r/CdzR6hYoj-f2EBM/review';
 const TOP_DOCTORS_URL = 'https://www.topdoctors.cl/reviewme/cm9kcmlnby1hbmRyZXMtb2xpdmFyZXMtbWlyYW5kYSYmcHBsLXBob25lJiY3/';
 const DOCTORALIA_URL = 'https://www.doctoralia.cl/nova/profiles/doctor/118350';
 
