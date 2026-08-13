@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ArrowUpRight, Star } from 'lucide-react';
 import { motion } from 'motion/react';
@@ -14,6 +14,34 @@ const PLATFORMS = [
 ];
 
 export default function OpinionPage() {
+  const contentRef = useRef<HTMLDivElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const content = contentRef.current;
+    const overlay = overlayRef.current;
+    if (!content || !overlay) return;
+
+    const setSpot = (clientX: number, clientY: number) => {
+      const rect = content.getBoundingClientRect();
+      const x = clientX - rect.left;
+      const y = clientY - rect.top;
+      overlay.style.setProperty('--spot-x', `${x}px`);
+      overlay.style.setProperty('--spot-y', `${y}px`);
+      overlay.style.opacity = '1';
+    };
+
+    const handlePointerMove = (e: PointerEvent) => setSpot(e.clientX, e.clientY);
+    const handlePointerLeave = () => { overlay.style.opacity = '0'; };
+
+    content.addEventListener('pointermove', handlePointerMove);
+    content.addEventListener('pointerleave', handlePointerLeave);
+    return () => {
+      content.removeEventListener('pointermove', handlePointerMove);
+      content.removeEventListener('pointerleave', handlePointerLeave);
+    };
+  }, []);
+
   useEffect(() => {
     const prevTitle = document.title;
     document.title = 'Danos tu opinión | Dr. Rodrigo Olivares M.';
@@ -50,8 +78,25 @@ export default function OpinionPage() {
         <div className="absolute inset-0 bg-gradient-to-t from-brand-900 via-brand-900/10 to-transparent md:bg-gradient-to-r md:from-brand-900 md:via-brand-900/20 md:to-transparent"></div>
       </div>
 
-      <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 py-12 order-2 md:order-1">
-        <div className="w-full max-w-md flex flex-col items-center">
+      <div
+        ref={contentRef}
+        className="relative flex-1 flex flex-col items-center justify-center text-center px-6 py-12 order-2 md:order-1 overflow-hidden"
+      >
+        <div
+          ref={overlayRef}
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-0 opacity-0 transition-opacity duration-300"
+          style={{
+            backgroundImage: 'url(/hip-xray.svg)',
+            backgroundSize: '200px auto',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            WebkitMaskImage: 'radial-gradient(110px circle at var(--spot-x, 50%) var(--spot-y, 50%), black 0%, black 55%, transparent 100%)',
+            maskImage: 'radial-gradient(110px circle at var(--spot-x, 50%) var(--spot-y, 50%), black 0%, black 55%, transparent 100%)',
+          }}
+        />
+
+        <div className="relative z-10 w-full max-w-md flex flex-col items-center">
         <motion.div
           initial={{ opacity: 0, y: 16, scale: 0.9 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
