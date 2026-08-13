@@ -8,8 +8,8 @@ const TOP_DOCTORS_URL = 'https://www.topdoctors.cl/reviewme/cm9kcmlnby1hbmRyZXMt
 const DOCTORALIA_URL = 'https://www.doctoralia.cl/nova/profiles/doctor/118350';
 
 const PLATFORMS = [
-  { name: 'Top Doctors', url: TOP_DOCTORS_URL, color: '#0057B7', starColor: '#F5C518' },
   { name: 'Doctoralia', url: DOCTORALIA_URL, color: '#00A651', starColor: '#ffffff' },
+  { name: 'Top Doctors', url: TOP_DOCTORS_URL, color: '#0057B7', starColor: '#F5C518' },
   { name: 'Google', url: GOOGLE_REVIEW_URL, color: '#EA4335', starColor: '#ffffff' },
 ];
 
