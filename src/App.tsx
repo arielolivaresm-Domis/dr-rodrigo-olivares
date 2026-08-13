@@ -3,6 +3,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import Cita from './pages/Cita';
 import CitaGracias from './pages/CitaGracias';
+import OpinionPage from './pages/OpinionPage';
 import BlogIndex from './pages/blog/BlogIndex';
 
 const ArtrosisCaderaSintomasTratamiento = lazy(() => import('./pages/blog/ArtrosisCaderaSintomasTratamiento'));
@@ -41,6 +42,7 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/cita" element={<Cita />} />
           <Route path="/cita/gracias" element={<CitaGracias />} />
+          <Route path="/opinion" element={<OpinionPage />} />
           <Route path="/blog" element={<BlogIndex />} />
           <Route path="/blog/artrosis-cadera-sintomas-tratamiento" element={<ArtrosisCaderaSintomasTratamiento />} />
           <Route path="/blog/cuando-operar-cadera" element={<CuandoOperarCadera />} />
