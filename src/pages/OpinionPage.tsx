@@ -8,9 +8,9 @@ const TOP_DOCTORS_URL = 'https://www.topdoctors.cl/reviewme/cm9kcmlnby1hbmRyZXMt
 const DOCTORALIA_URL = 'https://www.doctoralia.cl/nova/profiles/doctor/118350';
 
 const PLATFORMS = [
-  { name: 'Google', url: GOOGLE_REVIEW_URL, color: '#EA4335' },
-  { name: 'Top Doctors', url: TOP_DOCTORS_URL, color: '#0057B7' },
-  { name: 'Doctoralia', url: DOCTORALIA_URL, color: '#00A651' },
+  { name: 'Doctoralia', url: DOCTORALIA_URL, color: '#00A651', featured: false },
+  { name: 'Top Doctors', url: TOP_DOCTORS_URL, color: '#0057B7', featured: true },
+  { name: 'Google', url: GOOGLE_REVIEW_URL, color: '#EA4335', featured: false },
 ];
 
 export default function OpinionPage() {
@@ -125,6 +125,18 @@ export default function OpinionPage() {
 
   return (
     <div className="relative min-h-screen flex flex-col md:flex-row overflow-hidden bg-brand-900 text-white">
+      <Link
+        to="/"
+        className="fixed top-0 left-0 z-30 flex items-center gap-3 px-6 py-4"
+      >
+        <div className="w-9 h-9 rounded-sm flex items-center justify-center font-serif font-bold text-base bg-white/15 text-white border border-white/30">
+          RO
+        </div>
+        <span className="text-sm font-medium text-white">
+          Dr. Rodrigo Olivares
+        </span>
+      </Link>
+
       <div className="relative w-full h-56 md:h-auto md:w-2/5 order-1 md:order-2 shrink-0">
         <img
           src="/DrOlivares.webp"
@@ -195,10 +207,19 @@ export default function OpinionPage() {
               href={platform.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full flex items-center gap-4 bg-white/10 border border-white/30 backdrop-blur-sm py-5 px-5 rounded-sm hover:bg-white/20 hover:border-white/50 transition-all group"
+              className={`relative w-full flex items-center gap-4 backdrop-blur-sm rounded-sm transition-all group ${
+                platform.featured
+                  ? 'bg-white/15 border-2 border-white py-6 px-5 shadow-lg shadow-black/20 hover:bg-white/25'
+                  : 'bg-white/10 border border-white/30 py-5 px-5 hover:bg-white/20 hover:border-white/50'
+              }`}
             >
+              {platform.featured && (
+                <span className="absolute -top-3 left-5 bg-white text-brand-900 text-[11px] font-semibold tracking-wide px-2.5 py-0.5 rounded-full">
+                  RECOMENDADO
+                </span>
+              )}
               <span
-                className="w-10 h-10 rounded-sm flex items-center justify-center shrink-0"
+                className={`rounded-sm flex items-center justify-center shrink-0 ${platform.featured ? 'w-11 h-11' : 'w-10 h-10'}`}
                 style={{ backgroundColor: platform.color }}
               >
                 <Star size={18} className="text-white" fill="currentColor" />
