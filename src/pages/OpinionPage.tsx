@@ -3,7 +3,7 @@ import { Star } from 'lucide-react';
 
 const GOOGLE_REVIEW_URL = 'PLACEHOLDER_GOOGLE';
 const TOP_DOCTORS_URL = 'https://www.topdoctors.cl/reviewme/cm9kcmlnby1hbmRyZXMtb2xpdmFyZXMtbWlyYW5kYSYmcHBsLXBob25lJiY3/';
-const DOCTORALIA_URL = 'PLACEHOLDER_DOCTORALIA';
+const DOCTORALIA_URL = 'https://www.doctoralia.cl/nova/profiles/doctor/118350';
 
 export default function OpinionPage() {
   useEffect(() => {
