@@ -39,18 +39,19 @@ export default function OpinionPage() {
   }, []);
 
   return (
-    <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-brand-900 text-white px-6 py-16">
-      <div className="absolute inset-0 z-0">
+    <div className="relative min-h-screen flex flex-col md:flex-row overflow-hidden bg-brand-900 text-white">
+      <div className="relative w-full h-56 md:h-auto md:w-2/5 order-1 md:order-2 shrink-0">
         <img
           src="/DrOlivares.webp"
           alt="Dr. Rodrigo Olivares Miranda"
           className="w-full h-full object-cover object-top"
           referrerPolicy="no-referrer"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-brand-900/95 via-brand-900/90 to-brand-900"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-900 via-brand-900/10 to-transparent md:bg-gradient-to-r md:from-brand-900 md:via-brand-900/20 md:to-transparent"></div>
       </div>
 
-      <div className="relative z-10 w-full max-w-md flex flex-col items-center text-center">
+      <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 py-12 order-2 md:order-1">
+        <div className="w-full max-w-md flex flex-col items-center">
         <motion.div
           initial={{ opacity: 0, y: 16, scale: 0.9 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -112,9 +113,10 @@ export default function OpinionPage() {
         <ArrowLeft size={16} /> Volver al sitio principal
       </Link>
 
-      <p className="relative z-10 text-xs text-brand-100/70 mt-6">
-        Dr. Rodrigo Olivares M. · Cirujano de Cadera
-      </p>
+        <p className="relative z-10 text-xs text-brand-100/70 mt-6">
+          Dr. Rodrigo Olivares M. · Cirujano de Cadera
+        </p>
+      </div>
     </div>
   );
 }
