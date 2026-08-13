@@ -1,10 +1,17 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Star } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, Star } from 'lucide-react';
+import { motion } from 'motion/react';
 
 const GOOGLE_REVIEW_URL = 'https://g.page/r/CdzR6hYoj-f2EBM/review';
 const TOP_DOCTORS_URL = 'https://www.topdoctors.cl/reviewme/cm9kcmlnby1hbmRyZXMtb2xpdmFyZXMtbWlyYW5kYSYmcHBsLXBob25lJiY3/';
 const DOCTORALIA_URL = 'https://www.doctoralia.cl/nova/profiles/doctor/118350';
+
+const PLATFORMS = [
+  { name: 'Google', url: GOOGLE_REVIEW_URL, color: '#EA4335' },
+  { name: 'Top Doctors', url: TOP_DOCTORS_URL, color: '#0057B7' },
+  { name: 'Doctoralia', url: DOCTORALIA_URL, color: '#00A651' },
+];
 
 export default function OpinionPage() {
   useEffect(() => {
@@ -32,66 +39,80 @@ export default function OpinionPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 font-sans flex flex-col items-center justify-center px-6 py-12">
-      <div className="w-full max-w-md flex flex-col items-center text-center">
-        <div className="w-14 h-14 rounded-sm flex items-center justify-center bg-brand-900 mb-6">
-          <Star size={26} className="text-white" fill="currentColor" />
-        </div>
+    <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-brand-900 text-white px-6 py-16">
+      <div className="absolute inset-0 z-0">
+        <img
+          src="/DrOlivares.webp"
+          alt="Dr. Rodrigo Olivares Miranda"
+          className="w-full h-full object-cover object-top"
+          referrerPolicy="no-referrer"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-brand-900/95 via-brand-900/90 to-brand-900"></div>
+      </div>
 
-        <h1 className="font-serif text-3xl md:text-4xl text-slate-900 mb-3">
-          ¿Cómo fue tu experiencia?
-        </h1>
-        <p className="text-slate-500 font-light leading-relaxed mb-10">
+      <div className="relative z-10 w-full max-w-md flex flex-col items-center text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 16, scale: 0.9 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          className="w-16 h-16 rounded-full flex items-center justify-center bg-white/10 border border-white/30 backdrop-blur-sm mb-7"
+        >
+          <Star size={28} className="text-white" fill="currentColor" />
+        </motion.div>
+
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15, duration: 0.6 }}
+          className="font-serif text-4xl md:text-5xl leading-tight mb-4 text-white"
+        >
+          ¿Cómo fue <br /><span className="italic">tu experiencia?</span>
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.6 }}
+          className="text-brand-50 font-light leading-relaxed mb-10 max-w-sm"
+        >
           Tu opinión ayuda a otros pacientes a encontrar el cuidado que necesitan.
-        </p>
+        </motion.p>
 
-        <div className="w-full flex flex-col gap-4">
-          <a
-            href={GOOGLE_REVIEW_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full flex items-center gap-4 border border-slate-200 bg-white py-5 px-5 rounded-sm hover:border-brand-500 hover:shadow-lg transition-all group"
-          >
-            <span className="w-10 h-10 rounded-sm flex items-center justify-center shrink-0" style={{ backgroundColor: '#EA4335' }}>
-              <Star size={18} className="text-white" fill="currentColor" />
-            </span>
-            <span className="font-medium tracking-wide text-slate-900 group-hover:text-brand-700">Google</span>
-          </a>
-
-          <a
-            href={TOP_DOCTORS_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full flex items-center gap-4 border border-slate-200 bg-white py-5 px-5 rounded-sm hover:border-brand-500 hover:shadow-lg transition-all group"
-          >
-            <span className="w-10 h-10 rounded-sm flex items-center justify-center shrink-0" style={{ backgroundColor: '#0057B7' }}>
-              <Star size={18} className="text-white" fill="currentColor" />
-            </span>
-            <span className="font-medium tracking-wide text-slate-900 group-hover:text-brand-700">Top Doctors</span>
-          </a>
-
-          <a
-            href={DOCTORALIA_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full flex items-center gap-4 border border-slate-200 bg-white py-5 px-5 rounded-sm hover:border-brand-500 hover:shadow-lg transition-all group"
-          >
-            <span className="w-10 h-10 rounded-sm flex items-center justify-center shrink-0" style={{ backgroundColor: '#00A651' }}>
-              <Star size={18} className="text-white" fill="currentColor" />
-            </span>
-            <span className="font-medium tracking-wide text-slate-900 group-hover:text-brand-700">Doctoralia</span>
-          </a>
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.45, duration: 0.6 }}
+          className="w-full flex flex-col gap-4"
+        >
+          {PLATFORMS.map((platform) => (
+            <a
+              key={platform.name}
+              href={platform.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full flex items-center gap-4 bg-white/10 border border-white/30 backdrop-blur-sm py-5 px-5 rounded-sm hover:bg-white/20 hover:border-white/50 transition-all group"
+            >
+              <span
+                className="w-10 h-10 rounded-sm flex items-center justify-center shrink-0"
+                style={{ backgroundColor: platform.color }}
+              >
+                <Star size={18} className="text-white" fill="currentColor" />
+              </span>
+              <span className="font-medium tracking-wide text-white flex-1 text-left">{platform.name}</span>
+              <ArrowUpRight size={20} className="text-white/50 group-hover:text-white transition-colors" />
+            </a>
+          ))}
+        </motion.div>
       </div>
 
       <Link
         to="/"
-        className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-brand-600 transition-colors mt-16"
+        className="relative z-10 inline-flex items-center gap-2 text-sm text-brand-100 hover:text-white transition-colors mt-16"
       >
         <ArrowLeft size={16} /> Volver al sitio principal
       </Link>
 
-      <p className="text-xs text-slate-400 mt-6">
+      <p className="relative z-10 text-xs text-brand-100/70 mt-6">
         Dr. Rodrigo Olivares M. · Cirujano de Cadera
       </p>
     </div>
