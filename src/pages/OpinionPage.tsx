@@ -183,7 +183,7 @@ export default function OpinionPage() {
           transition={{ delay: 0.15, duration: 0.6 }}
           className="font-serif text-4xl md:text-5xl leading-tight mb-4 text-white"
         >
-          ¿Cómo fue <br /><span className="italic">tu experiencia?</span>
+          Déjanos <br /><span className="italic">tu opinión</span>
         </motion.h1>
 
         <motion.p
@@ -192,7 +192,7 @@ export default function OpinionPage() {
           transition={{ delay: 0.3, duration: 0.6 }}
           className="text-brand-50 font-light leading-relaxed mb-10 max-w-sm"
         >
-          Tu opinión ayuda a otros pacientes a encontrar el cuidado que necesitan.
+          Califícanos en las 3 plataformas y ayúdanos a mejorar.
         </motion.p>
 
         <motion.div
