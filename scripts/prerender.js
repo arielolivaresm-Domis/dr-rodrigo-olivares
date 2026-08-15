@@ -16,6 +16,7 @@ if (!fs.existsSync(shellPath)) {
 const ROUTES = [
   { route: '/', out: 'index.html' },
   { route: '/cita', out: 'cita/index.html' },
+  { route: '/opinion', out: 'opinion/index.html' },
   { route: '/blog', out: 'blog/index.html' },
   { route: '/blog/artrosis-cadera-sintomas-tratamiento', out: 'blog/artrosis-cadera-sintomas-tratamiento/index.html' },
   { route: '/blog/necrosis-avascular-cadera', out: 'blog/necrosis-avascular-cadera/index.html' },

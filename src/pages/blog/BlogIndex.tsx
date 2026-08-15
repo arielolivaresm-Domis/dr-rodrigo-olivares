@@ -84,14 +84,14 @@ export default function BlogIndex() {
             <div className="w-9 h-9 rounded-sm flex items-center justify-center font-serif font-bold text-base bg-brand-900 text-white">RO</div>
             <span className="text-sm font-medium text-slate-900 hidden md:block">Dr. Rodrigo Olivares</span>
           </Link>
-          <Link to="/" className="inline-flex items-center gap-2 text-sm text-slate-600 hover:text-brand-600 transition-colors">
+          <Link to="/" className="inline-flex items-center gap-2 text-sm text-slate-600 hover:text-brand-700 transition-colors">
             <ArrowLeft size={16} /> Inicio
           </Link>
         </div>
       </nav>
 
       <div className="container mx-auto px-6 md:px-12 py-16 max-w-3xl">
-        <p className="text-xs tracking-[0.2em] uppercase text-brand-600 font-semibold mb-3">Blog</p>
+        <p className="text-xs tracking-[0.2em] uppercase text-brand-700 font-semibold mb-3">Blog</p>
         <h1 className="font-serif text-3xl md:text-4xl text-slate-900 mb-10">
           Artículos sobre salud de cadera
         </h1>
@@ -106,7 +106,7 @@ export default function BlogIndex() {
               <p className="text-xs text-slate-400 mb-2">{a.date}</p>
               <h2 className="font-serif text-xl text-slate-900 mb-2">{a.title}</h2>
               <p className="text-slate-600 font-light mb-3">{a.description}</p>
-              <span className="inline-flex items-center gap-2 text-sm text-brand-600 font-medium">
+              <span className="inline-flex items-center gap-2 text-sm text-brand-700 font-medium">
                 Leer artículo <ArrowUpRight size={14} />
               </span>
             </Link>

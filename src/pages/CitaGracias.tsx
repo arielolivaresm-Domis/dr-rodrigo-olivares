@@ -20,7 +20,7 @@ export default function CitaGracias() {
             <div className="w-9 h-9 rounded-sm flex items-center justify-center font-serif font-bold text-base bg-brand-900 text-white">RO</div>
             <span className="text-sm font-medium text-slate-900 hidden md:block">Dr. Rodrigo Olivares</span>
           </Link>
-          <Link to="/" className="inline-flex items-center gap-2 text-sm text-slate-600 hover:text-brand-600 transition-colors">
+          <Link to="/" className="inline-flex items-center gap-2 text-sm text-slate-600 hover:text-brand-700 transition-colors">
             <ArrowLeft size={16} /> Inicio
           </Link>
         </div>
@@ -28,7 +28,7 @@ export default function CitaGracias() {
 
       <section className="flex-1 flex items-center justify-center py-24">
         <div className="container mx-auto px-6 md:px-12 text-center max-w-lg">
-          <CheckCircle size={56} className="text-brand-600 mx-auto mb-6" />
+          <CheckCircle size={56} className="text-brand-700 mx-auto mb-6" />
           <h1 className="font-serif text-3xl md:text-4xl text-slate-900 mb-4">Solicitud recibida</h1>
           <p className="text-slate-500 font-light leading-relaxed mb-10">
             El Dr. Olivares se contactará a la brevedad.

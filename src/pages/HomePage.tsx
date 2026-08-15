@@ -4,6 +4,7 @@ import { ArrowUpRight, ChevronLeft, ChevronRight, MapPin, Instagram, Menu, X, St
 import { motion, useInView, AnimatePresence } from 'motion/react';
 
 const BUPA_URL = "https://agendaclinicas.bupa.cl/clinicas/consulta-medica/reserva-consulta-medica?ref=cbs&profesional=Rodrigo+Andres+Olivares+Miranda&especialidad=Traumatologia+Cadera";
+const HERO_SPOT_RADIUS = 170;
 
 const ESPECIALIDADES = [
   {
@@ -57,6 +58,7 @@ function CountUp({ end, prefix = '', suffix = '', duration = 2000, className = '
   const isInView = useInView(ref, { once: true, margin: '-50px' });
 
   useEffect(() => {
+    if (end <= 1) { setCount(end); return; }
     if (!isInView) return;
     let startTime: number | null = null;
     const animate = (time: number) => {
@@ -112,6 +114,95 @@ export default function HomePage() {
   const [navScrolled, setNavScrolled] = useState(false);
   const [model1Loaded, setModel1Loaded] = useState(false);
   const [model2Loaded, setModel2Loaded] = useState(false);
+  const heroSectionRef = useRef<HTMLElement>(null);
+  const heroImgRef = useRef<HTMLDivElement>(null);
+  const heroXrayRef = useRef<HTMLDivElement>(null);
+
+  // Desktop: X-ray spotlight over hero photo tracks the real cursor.
+  // Listener sits on the whole section (not the photo box) because the
+  // full-width text container overlaps the photo's hit-testing area.
+  useEffect(() => {
+    const section = heroSectionRef.current;
+    const content = heroImgRef.current;
+    const overlay = heroXrayRef.current;
+    if (!section || !content || !overlay) return;
+    if (window.matchMedia('(pointer: coarse)').matches) return;
+
+    const setSpot = (clientX: number, clientY: number) => {
+      const rect = content.getBoundingClientRect();
+      const r = HERO_SPOT_RADIUS;
+      const x = Math.min(Math.max(clientX - rect.left, r), Math.max(rect.width - r, r));
+      const y = Math.min(Math.max(clientY - rect.top, r), Math.max(rect.height - r, r));
+      overlay.style.setProperty('--spot-x', `${x}px`);
+      overlay.style.setProperty('--spot-y', `${y}px`);
+      overlay.style.opacity = '1';
+    };
+
+    const handlePointerMove = (e: PointerEvent) => setSpot(e.clientX, e.clientY);
+    const handlePointerLeave = () => { overlay.style.opacity = '0'; };
+
+    section.addEventListener('pointermove', handlePointerMove);
+    section.addEventListener('pointerleave', handlePointerLeave);
+    return () => {
+      section.removeEventListener('pointermove', handlePointerMove);
+      section.removeEventListener('pointerleave', handlePointerLeave);
+    };
+  }, []);
+
+  // Touch devices: the X-ray reveal plays as a one-shot sweep triggered by
+  // scrolling — down on the way in, reversed if the visitor scrolls back up.
+  useEffect(() => {
+    const content = heroImgRef.current;
+    const overlay = heroXrayRef.current;
+    if (!content || !overlay) return;
+    if (!window.matchMedia('(pointer: coarse)').matches) return;
+
+    const duration = 1600;
+    const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+
+    let sweeping = false;
+    let lastDirection: 'down' | 'up' | null = null;
+    let lastScrollY = window.scrollY;
+
+    const runSweep = (direction: 'down' | 'up') => {
+      sweeping = true;
+      const rect = content.getBoundingClientRect();
+      const r = HERO_SPOT_RADIUS;
+      const topY = r;
+      const bottomY = Math.max(rect.height - r, r);
+      const fromY = direction === 'down' ? topY : bottomY;
+      const toY = direction === 'down' ? bottomY : topY;
+      const x = Math.min(Math.max(rect.width * 0.5, r), Math.max(rect.width - r, r));
+      const start = performance.now();
+
+      const step = (now: number) => {
+        const t = Math.min((now - start) / duration, 1);
+        const y = fromY + (toY - fromY) * ease(t);
+        overlay.style.setProperty('--spot-x', `${x}px`);
+        overlay.style.setProperty('--spot-y', `${y}px`);
+        overlay.style.opacity = '1';
+        if (t < 1) {
+          requestAnimationFrame(step);
+        } else {
+          overlay.style.opacity = '0';
+          sweeping = false;
+        }
+      };
+      requestAnimationFrame(step);
+    };
+
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+      const direction = currentY > lastScrollY ? 'down' : currentY < lastScrollY ? 'up' : null;
+      lastScrollY = currentY;
+      if (direction && direction !== lastDirection && !sweeping) {
+        lastDirection = direction;
+        runSweep(direction);
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     const s = document.createElement('script');
@@ -198,7 +289,7 @@ export default function HomePage() {
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${navScrolled ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-100' : 'bg-transparent'}`}>
         <div className="container mx-auto px-6 md:px-12 h-16 flex items-center justify-between">
 
-          <button onClick={() => scrollTo('inicio')} className="flex items-center gap-3">
+          <button onClick={() => scrollTo('inicio')} className="flex items-center gap-3 p-2 -m-2">
             <div className={`w-9 h-9 rounded-sm flex items-center justify-center font-serif font-bold text-base transition-all ${navScrolled ? 'bg-brand-900 text-white' : 'bg-white/15 text-white border border-white/30'}`}>
               RO
             </div>
@@ -212,20 +303,20 @@ export default function HomePage() {
               <button
                 key={l.id}
                 onClick={() => scrollTo(l.id)}
-                className={`text-sm transition-colors ${navScrolled ? 'text-slate-600 hover:text-brand-600' : 'text-white/75 hover:text-white'}`}
+                className={`text-sm transition-colors ${navScrolled ? 'text-slate-600 hover:text-brand-700' : 'text-white/75 hover:text-white'}`}
               >
                 {l.label}
               </button>
             ))}
             <Link
               to="/blog"
-              className={`text-sm transition-colors ${navScrolled ? 'text-slate-600 hover:text-brand-600' : 'text-white/75 hover:text-white'}`}
+              className={`text-sm transition-colors ${navScrolled ? 'text-slate-600 hover:text-brand-700' : 'text-white/75 hover:text-white'}`}
             >
               Blog
             </Link>
             <Link
               to="/opinion"
-              className={`text-sm transition-colors ${navScrolled ? 'text-slate-600 hover:text-brand-600' : 'text-white/75 hover:text-white'}`}
+              className={`text-sm transition-colors ${navScrolled ? 'text-slate-600 hover:text-brand-700' : 'text-white/75 hover:text-white'}`}
             >
               Opinión
             </Link>
@@ -296,17 +387,29 @@ export default function HomePage() {
       </nav>
 
       {/* ── HERO ───────────────────────────────────────── */}
-      <section id="inicio" className="relative min-h-screen flex items-center pt-20 pb-20 overflow-hidden bg-brand-900 text-white">
+      <section id="inicio" ref={heroSectionRef} className="relative min-h-screen flex items-center pt-20 pb-20 overflow-hidden bg-brand-900 text-white">
         <div className="absolute inset-0 z-0 flex justify-end">
-          <div className="w-full md:w-2/3 h-full relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-brand-900 via-brand-900/40 to-transparent z-10"></div>
-            <div className="absolute inset-0 bg-gradient-to-t from-brand-900/50 via-transparent to-transparent z-10"></div>
+          <div ref={heroImgRef} className="w-full md:w-2/3 h-full relative overflow-hidden">
             <img
               src="/DrOlivares.webp"
               alt="Dr. Rodrigo Olivares Miranda"
               className="w-full h-full object-cover object-top"
               referrerPolicy="no-referrer"
             />
+            <div
+              ref={heroXrayRef}
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 z-[15] opacity-0 transition-opacity duration-300"
+              style={{
+                backgroundImage: 'url(/operacion1.jpeg)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center 35%',
+                WebkitMaskImage: `radial-gradient(${HERO_SPOT_RADIUS}px circle at var(--spot-x, 50%) var(--spot-y, 50%), black 0%, black 55%, transparent 100%)`,
+                maskImage: `radial-gradient(${HERO_SPOT_RADIUS}px circle at var(--spot-x, 50%) var(--spot-y, 50%), black 0%, black 55%, transparent 100%)`,
+              }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-brand-900 via-brand-900/75 to-brand-900/15 md:via-brand-900/40 md:to-transparent z-10"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-brand-900/85 via-brand-900/25 to-transparent md:from-brand-900/50 md:via-transparent md:to-transparent z-10"></div>
           </div>
         </div>
 
@@ -371,7 +474,7 @@ export default function HomePage() {
 
           <div className="mt-24 grid grid-cols-1 md:grid-cols-4 gap-8 items-end border-t border-brand-800 pt-8">
             <div className="flex items-center gap-4">
-              <img src="/caradro.webp" alt="Profile" className="w-16 h-16 rounded-full object-cover" referrerPolicy="no-referrer" />
+              <img src="/caradro.webp" alt="Dr. Rodrigo Olivares" className="w-16 h-16 rounded-full object-cover" referrerPolicy="no-referrer" />
               <div>
                 <p className="text-xs text-brand-100 tracking-wider">CLÍNICA BUPA SANTIAGO</p>
                 <p className="font-medium text-white">Cirugía de Cadera</p>
@@ -400,7 +503,7 @@ export default function HomePage() {
         </div>
         <div className="container mx-auto px-6 md:px-12 text-center">
           <FadeIn>
-            <p className="text-xs tracking-[0.2em] uppercase text-brand-600 font-semibold mb-6">Dr. Rodrigo Olivares Miranda</p>
+            <p className="text-xs tracking-[0.2em] uppercase text-brand-700 font-semibold mb-6">Dr. Rodrigo Olivares Miranda</p>
             <h2 className="font-serif text-4xl md:text-5xl max-w-2xl mx-auto leading-tight mb-16 text-slate-900">
               Un cuidado único para <br /> cada tipo de adversidad:
             </h2>
@@ -417,9 +520,9 @@ export default function HomePage() {
                     to={esp.slug}
                     className="block border border-slate-200 bg-white py-7 px-5 hover:border-brand-500 hover:shadow-2xl transition-all rounded-sm text-left group"
                   >
-                    <p className="font-serif text-xl text-brand-600 mb-3 group-hover:text-brand-700">{esp.label}</p>
+                    <p className="font-serif text-xl text-brand-700 mb-3 group-hover:text-brand-700">{esp.label}</p>
                     <p className="text-sm text-slate-500 font-light leading-relaxed">{esp.desc}</p>
-                    <span className="inline-flex items-center gap-1 text-xs text-brand-600 font-medium mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <span className="inline-flex items-center gap-1 text-xs text-brand-700 font-medium mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
                       Leer más <ArrowUpRight size={12} />
                     </span>
                   </Link>
@@ -434,7 +537,7 @@ export default function HomePage() {
       <section className="bg-slate-50 pb-24">
         <div className="container mx-auto px-6 md:px-12">
           <FadeIn className="text-center mb-10">
-            <p className="text-xs tracking-[0.2em] uppercase text-brand-600 font-semibold mb-3">Educación al paciente</p>
+            <p className="text-xs tracking-[0.2em] uppercase text-brand-700 font-semibold mb-3">Educación al paciente</p>
             <h3 className="font-serif text-3xl md:text-4xl text-slate-900">Así funciona una Artroplastia de Cadera</h3>
           </FadeIn>
           <FadeIn>
@@ -491,7 +594,7 @@ export default function HomePage() {
           <div className="flex flex-col md:flex-row items-start gap-16">
 
             <FadeIn className="md:w-1/3">
-              <p className="text-sm text-brand-600 font-semibold mb-2">Mucho gusto, soy el</p>
+              <p className="text-sm text-brand-700 font-semibold mb-2">Mucho gusto, soy el</p>
               <h2 className="font-serif text-4xl md:text-5xl leading-tight text-slate-900">
                 Dr. Rodrigo <br /> Olivares Miranda.
               </h2>
@@ -621,7 +724,7 @@ export default function HomePage() {
             {TESTIMONIALS.map((t, i) => (
               <FadeIn key={i} delay={i * 0.1}>
                 <motion.div
-                  animate={{ opacity: testimonialIdx === i ? 1 : 0.35, scale: testimonialIdx === i ? 1 : 0.97 }}
+                  animate={{ opacity: testimonialIdx === i ? 1 : 0.6, scale: testimonialIdx === i ? 1 : 0.97 }}
                   transition={{ duration: 0.3 }}
                   className="relative pt-6 cursor-pointer"
                   onClick={() => setTestimonialIdx(i)}
@@ -631,7 +734,7 @@ export default function HomePage() {
                     {[...Array(5)].map((_, s) => <Star key={s} size={14} className="fill-yellow-400 text-yellow-400" />)}
                   </div>
                   <h4 className="font-medium text-lg mb-1 relative z-10">{t.name}</h4>
-                  <p className="text-xs text-brand-400 font-medium italic mb-4 relative z-10">Paciente · Clínica Bupa Santiago</p>
+                  <p className="text-xs text-brand-100 font-medium italic mb-4 relative z-10">Paciente · Clínica Bupa Santiago</p>
                   <p className="text-brand-50 font-light italic leading-relaxed relative z-10">{t.text}</p>
                 </motion.div>
               </FadeIn>
@@ -644,14 +747,14 @@ export default function HomePage() {
       <section className="bg-slate-900 py-20">
         <div className="container mx-auto px-6 md:px-12">
           <FadeIn className="text-center mb-14">
-            <p className="text-xs tracking-[0.2em] uppercase text-brand-400 font-semibold mb-3">Trayectoria</p>
+            <p className="text-xs tracking-[0.2em] uppercase text-brand-100 font-semibold mb-3">Trayectoria</p>
             <h3 className="font-serif text-3xl md:text-4xl text-white">Formación y experiencia</h3>
           </FadeIn>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-6">
             {[
               { end: 500, prefix: '+', label: 'Cirugías realizadas' },
               { end: 12, prefix: '+', label: 'Años de experiencia' },
-              { end: 1, prefix: '', label: 'Sedes Clínica Bupa Santiago' },
+              { end: 1, prefix: '', label: 'Sede Clínica Bupa Santiago' },
               { end: 100, prefix: '', suffix: '%', label: 'Dedicación a la cadera' },
             ].map((item, i) => (
               <FadeIn key={i} delay={i * 0.08}>
@@ -663,7 +766,7 @@ export default function HomePage() {
                   <p className="font-serif text-4xl md:text-5xl text-white mb-2">
                     <CountUp end={item.end} prefix={item.prefix} suffix={item.suffix} enableScrollSpy={true} scrollSpyOnce={true} />
                   </p>
-                  <p className="text-sm text-brand-300 font-light">{item.label}</p>
+                  <p className="text-sm text-brand-100 font-light">{item.label}</p>
                 </motion.div>
               </FadeIn>
             ))}
@@ -681,7 +784,7 @@ export default function HomePage() {
                   className="border border-brand-800 rounded-lg p-8 hover:border-brand-600 transition-all hover:bg-brand-800/30 cursor-pointer"
                 >
                   <p className="font-medium text-white mb-2">{card.title}</p>
-                  <p className="text-sm text-brand-300 font-light leading-relaxed">{card.desc}</p>
+                  <p className="text-sm text-brand-100 font-light leading-relaxed">{card.desc}</p>
                 </motion.div>
               </FadeIn>
             ))}
@@ -745,10 +848,10 @@ export default function HomePage() {
                 <p className="font-light text-slate-600">Lunes a Viernes: 08:00 hrs a 18:00 hrs</p>
               </div>
               <div className="flex flex-wrap gap-4">
-                <a href="https://waze.com/ul?ll=-33.518784,-70.5986873&navigate=yes" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 border-2 border-brand-600 text-brand-600 px-6 py-3 text-sm font-medium hover:bg-brand-600 hover:text-white transition-colors rounded-sm">
+                <a href="https://waze.com/ul?ll=-33.518784,-70.5986873&navigate=yes" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 border-2 border-brand-600 text-brand-700 px-6 py-3 text-sm font-medium hover:bg-brand-600 hover:text-white transition-colors rounded-sm">
                   <MapPin size={16} /> IR CON WAZE
                 </a>
-                <a href="https://m.uber.com/ul/?action=setPickup&client_id=uber&pickup=my_location&dropoff[latitude]=-33.518784&dropoff[longitude]=-70.5986873&dropoff[nickname]=Clínica%20Bupa%20Santiago" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 border-2 border-brand-600 text-brand-600 px-6 py-3 text-sm font-medium hover:bg-brand-600 hover:text-white transition-colors rounded-sm">
+                <a href="https://m.uber.com/ul/?action=setPickup&client_id=uber&pickup=my_location&dropoff[latitude]=-33.518784&dropoff[longitude]=-70.5986873&dropoff[nickname]=Clínica%20Bupa%20Santiago" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 border-2 border-brand-600 text-brand-700 px-6 py-3 text-sm font-medium hover:bg-brand-600 hover:text-white transition-colors rounded-sm">
                   <MapPin size={16} /> IR CON UBER
                 </a>
               </div>
@@ -788,8 +891,8 @@ export default function HomePage() {
             Dr. Rodrigo Olivares Miranda © {new Date().getFullYear()} | Todos los derechos reservados
           </div>
 
-          <div className="flex items-center gap-6">
-            <button onClick={() => setPrivacyOpen(true)} className="text-xs text-slate-500 hover:text-brand-600 transition-colors">
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 md:gap-6">
+            <button onClick={() => setPrivacyOpen(true)} className="text-xs text-slate-500 hover:text-brand-700 transition-colors p-2 -m-2">
               Política de Privacidad
             </button>
             <span className="flex items-center gap-1">
@@ -797,7 +900,7 @@ export default function HomePage() {
               <a
                 href="https://pharoslab.cl/"
                 rel="noopener noreferrer"
-                className={`pharos-link text-base font-bold ${pharosAnim ? 'pharos-spin' : ''}`}
+                className={`pharos-link text-lg font-bold p-2 -m-2 ${pharosAnim ? 'pharos-spin' : ''}`}
                 onClick={handlePharosClick}
               >
                 <span className={pharosAnim ? '' : 'pharos-glow'}>
@@ -805,10 +908,10 @@ export default function HomePage() {
                 </span>
               </a>
             </span>
-            <a href="mailto:Dr.olivaresm@gmail.com" className="text-xs text-slate-500 hover:text-brand-600 transition-colors">
+            <a href="mailto:Dr.olivaresm@gmail.com" className="text-xs text-slate-500 hover:text-brand-700 transition-colors p-2 -m-2">
               Dr.olivaresm@gmail.com
             </a>
-            <a href="https://www.instagram.com/dr.rodrigo.olivares/" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-brand-600 transition-colors">
+            <a href="https://www.instagram.com/dr.rodrigo.olivares/" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-brand-700 transition-colors p-2 -m-2">
               <Instagram size={18} />
             </a>
           </div>
@@ -837,7 +940,7 @@ export default function HomePage() {
                 <X size={20} />
               </button>
               <div className="flex items-center gap-3 mb-6">
-                <Shield size={20} className="text-brand-600" />
+                <Shield size={20} className="text-brand-700" />
                 <h3 className="font-serif text-2xl text-slate-900">Política de Privacidad</h3>
               </div>
               <div className="text-sm text-slate-600 space-y-4 font-light leading-relaxed">
@@ -845,7 +948,7 @@ export default function HomePage() {
                 <p><strong className="font-semibold text-slate-800">Datos recopilados:</strong> El sitio cuenta con un formulario de contacto en la sección "Agendar consulta" (nombre, email, teléfono y mensaje), procesado a través de Web3Forms y utilizado exclusivamente para responder tu solicitud. El agendamiento de consultas también puede realizarse a través de la plataforma segura de Clínica Bupa Santiago, sujeta a su propia política de privacidad.</p>
                 <p><strong className="font-semibold text-slate-800">Cookies y analítica:</strong> Este sitio utiliza Google Analytics 4 (GA4) para medir visitas de forma anónima y mejorar la experiencia. No se recopilan datos personales identificables. Puede desactivar el seguimiento desde la configuración de su navegador.</p>
                 <p><strong className="font-semibold text-slate-800">Contenido:</strong> Todo el contenido médico e imágenes publicadas tienen fines exclusivamente informativos y educativos. No constituyen consejo médico.</p>
-                <p><strong className="font-semibold text-slate-800">Contacto:</strong> Para consultas sobre privacidad, puede escribir a <a href="mailto:Dr.olivaresm@gmail.com" className="text-brand-600 underline">Dr.olivaresm@gmail.com</a> o a través de Clínica Bupa Santiago.</p>
+                <p><strong className="font-semibold text-slate-800">Contacto:</strong> Para consultas sobre privacidad, puede escribir a <a href="mailto:Dr.olivaresm@gmail.com" className="text-brand-700 underline">Dr.olivaresm@gmail.com</a> o a través de Clínica Bupa Santiago.</p>
                 <p className="text-slate-400 text-xs">Última actualización: Marzo 2026.</p>
               </div>
             </motion.div>

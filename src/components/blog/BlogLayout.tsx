@@ -130,14 +130,14 @@ export function BlogLayout({ meta, children }: { meta: BlogMeta; children: React
             <div className="w-9 h-9 rounded-sm flex items-center justify-center font-serif font-bold text-base bg-brand-900 text-white">RO</div>
             <span className="text-sm font-medium text-slate-900 hidden md:block">Dr. Rodrigo Olivares</span>
           </Link>
-          <Link to="/" className="inline-flex items-center gap-2 text-sm text-slate-600 hover:text-brand-600 transition-colors">
+          <Link to="/" className="inline-flex items-center gap-2 text-sm text-slate-600 hover:text-brand-700 transition-colors">
             <ArrowLeft size={16} /> Inicio
           </Link>
         </div>
       </nav>
 
       <article className="container mx-auto px-6 md:px-12 py-16 max-w-3xl">
-        <p className="text-xs tracking-[0.2em] uppercase text-brand-600 font-semibold mb-3">{meta.badge}</p>
+        <p className="text-xs tracking-[0.2em] uppercase text-brand-700 font-semibold mb-3">{meta.badge}</p>
         <p className="text-xs text-slate-400 mb-8">
           Por <span className="font-medium text-slate-500">Dr. Rodrigo Olivares M.</span> · {new Date(meta.datePublished).toLocaleDateString('es-CL', { year: 'numeric', month: 'long', day: 'numeric' })} · {meta.readingTime} de lectura
         </p>
@@ -162,7 +162,7 @@ export function BlogLayout({ meta, children }: { meta: BlogMeta; children: React
       <footer className="bg-slate-50 text-slate-900 py-8 border-t border-slate-200">
         <div className="container mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-xs text-slate-500">Dr. Rodrigo Olivares Miranda © {new Date().getFullYear()}</p>
-          <Link to="/blog" className="text-xs text-slate-500 hover:text-brand-600 transition-colors">← Volver al blog</Link>
+          <Link to="/blog" className="text-xs text-slate-500 hover:text-brand-700 transition-colors">← Volver al blog</Link>
         </div>
       </footer>
     </div>
