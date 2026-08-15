@@ -386,8 +386,8 @@ export default function HomePage() {
               <p className="text-sm text-brand-100 font-light">años experiencia</p>
             </div>
             <div>
-              <p className="font-serif text-4xl md:text-5xl mb-1 text-white"><CountUp end={3} /></p>
-              <p className="text-sm text-brand-100 font-light">sedes Bupa Santiago</p>
+              <p className="font-serif text-4xl md:text-5xl mb-1 text-white"><CountUp end={1} /></p>
+              <p className="text-sm text-brand-100 font-light">sede Bupa Santiago</p>
             </div>
           </div>
         </div>
