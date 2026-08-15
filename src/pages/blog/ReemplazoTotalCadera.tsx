@@ -67,19 +67,6 @@ export default function ReemplazoTotalCadera() {
         <li>· <span className="font-medium text-slate-700">Cabeza femoral:</span> la parte que articula con la cúpula. Disponible en cerámica, metal o polietileno de alta densidad.</li>
       </ul>
 
-      <h2 className="font-serif text-2xl text-slate-900 mt-10 mb-3">Tipos de abordaje quirúrgico</h2>
-      <p>
-        La vía de acceso a la articulación es una decisión técnica importante:
-      </p>
-      <ul className="list-none space-y-3">
-        <li>
-          <span className="font-medium text-slate-700">Abordaje posterior:</span> la vía más tradicional, con gran desarrollo y experiencia a nivel mundial, y actualmente optimizada para obtener excelentes resultados. Técnicamente versátil para casos complejos. La rehabilitación inicia desde el mismo día de la cirugía.
-        </li>
-        <li>
-          <span className="font-medium text-slate-700">Abordaje anterior (DAA — Direct Anterior Approach):</span> permite una excelente recuperación, rápida y con menos restricciones postoperatorias. Es la vía que el Dr. Olivares utiliza en ciertos casos apropiados.
-        </li>
-      </ul>
-
       <h2 className="font-serif text-2xl text-slate-900 mt-10 mb-3">¿Cuánto dura la prótesis?</h2>
       <p>
         Las prótesis modernas de cúpula-cerámica o metal-polietileno de alta densidad están

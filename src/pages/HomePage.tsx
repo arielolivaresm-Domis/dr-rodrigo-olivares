@@ -9,7 +9,7 @@ const ESPECIALIDADES = [
   {
     label: 'Artroplastia Total',
     slug: '/blog/reemplazo-total-cadera-artroplastia',
-    desc: 'Reemplazo total de la articulación coxofemoral. Dr. Olivares realiza artroplastia total de cadera en Clínica Bupa Santiago con abordaje anterior (DAA) y protocolo ERAS.',
+    desc: 'Reemplazo total de la articulación coxofemoral. Dr. Olivares realiza artroplastia total de cadera en Clínica Bupa Santiago.',
   },
   {
     label: 'Cirugía de Revisión',
@@ -651,7 +651,7 @@ export default function HomePage() {
             {[
               { end: 500, prefix: '+', label: 'Cirugías realizadas' },
               { end: 12, prefix: '+', label: 'Años de experiencia' },
-              { end: 3, prefix: '', label: 'Sedes Clínica Bupa Santiago' },
+              { end: 1, prefix: '', label: 'Sedes Clínica Bupa Santiago' },
               { end: 100, prefix: '', suffix: '%', label: 'Dedicación a la cadera' },
             ].map((item, i) => (
               <FadeIn key={i} delay={i * 0.08}>
@@ -672,7 +672,7 @@ export default function HomePage() {
             {[
               { title: 'Fellowship Cirugía de Cadera y Pelvis', desc: 'Subespecialización de alto nivel en cirugía compleja de cadera y pelvis.' },
               { title: 'Protocolos ERAS', desc: 'Recuperación acelerada post-cirugía. Menos dolor, más pronta autonomía para el paciente.' },
-              { title: 'Clínica Bupa Santiago', desc: 'Atención en una de las redes de salud privada más reconocidas de Chile, con 3 sedes.' },
+              { title: 'Clínica Bupa Santiago', desc: 'Atención en una de las redes de salud privada más reconocidas de Chile.' },
             ].map((card, i) => (
               <FadeIn key={i} delay={i * 0.1}>
                 <motion.div 
