@@ -533,6 +533,22 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── QUIRÓFANO ──────────────────────────────────── */}
+      <section className="bg-white pb-24">
+        <div className="container mx-auto px-6 md:px-12">
+          <FadeIn>
+            <div className="max-w-3xl mx-auto aspect-[4/5] rounded-2xl overflow-hidden shadow-xl">
+              <img
+                src="/operacion1.jpeg"
+                alt="Dr. Rodrigo Olivares en pabellón quirúrgico"
+                className="w-full h-full object-cover object-center"
+                referrerPolicy="no-referrer"
+              />
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
       {/* ── ABOUT ──────────────────────────────────────── */}
       <section id="sobre-mi" className="bg-slate-50 text-slate-900 py-32 relative overflow-hidden">
         <div className="container mx-auto px-6 md:px-12">
