@@ -149,56 +149,6 @@ export default function HomePage() {
     };
   }, []);
 
-  // Touch devices: the X-ray reveal plays as a one-shot sweep triggered by
-  // scrolling — down on the way in, reversed if the visitor scrolls back up.
-  useEffect(() => {
-    const content = heroImgRef.current;
-    const overlay = heroXrayRef.current;
-    if (!content || !overlay) return;
-    if (!window.matchMedia('(pointer: coarse)').matches) return;
-
-    // No circular spotlight on touch — the whole photo fades to the reveal image.
-    overlay.style.maskImage = 'none';
-    overlay.style.webkitMaskImage = 'none';
-
-    const duration = 1600;
-
-    let sweeping = false;
-    let lastDirection: 'down' | 'up' | null = null;
-    let lastScrollY = window.scrollY;
-
-    const runSweep = () => {
-      sweeping = true;
-      const start = performance.now();
-
-      const step = (now: number) => {
-        const t = Math.min((now - start) / duration, 1);
-        // fades in for the first half, holds, fades out for the second half
-        const fade = Math.sin(Math.min(t * Math.PI, Math.PI));
-        overlay.style.opacity = `${fade}`;
-        if (t < 1) {
-          requestAnimationFrame(step);
-        } else {
-          overlay.style.opacity = '0';
-          sweeping = false;
-        }
-      };
-      requestAnimationFrame(step);
-    };
-
-    const handleScroll = () => {
-      const currentY = window.scrollY;
-      const direction = currentY > lastScrollY ? 'down' : currentY < lastScrollY ? 'up' : null;
-      lastScrollY = currentY;
-      if (direction && direction !== lastDirection && !sweeping) {
-        lastDirection = direction;
-        runSweep();
-      }
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   useEffect(() => {
     const s = document.createElement('script');
     s.id = 'home-faqpage-schema';
