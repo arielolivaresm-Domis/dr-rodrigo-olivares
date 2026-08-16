@@ -157,30 +157,25 @@ export default function HomePage() {
     if (!content || !overlay) return;
     if (!window.matchMedia('(pointer: coarse)').matches) return;
 
+    // No circular spotlight on touch — the whole photo fades to the reveal image.
+    overlay.style.maskImage = 'none';
+    overlay.style.webkitMaskImage = 'none';
+
     const duration = 1600;
-    const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
     let sweeping = false;
     let lastDirection: 'down' | 'up' | null = null;
     let lastScrollY = window.scrollY;
 
-    const runSweep = (direction: 'down' | 'up') => {
+    const runSweep = () => {
       sweeping = true;
-      const rect = content.getBoundingClientRect();
-      const r = HERO_SPOT_RADIUS;
-      const topY = r;
-      const bottomY = Math.max(rect.height - r, r);
-      const fromY = direction === 'down' ? topY : bottomY;
-      const toY = direction === 'down' ? bottomY : topY;
-      const x = Math.min(Math.max(rect.width * 0.5, r), Math.max(rect.width - r, r));
       const start = performance.now();
 
       const step = (now: number) => {
         const t = Math.min((now - start) / duration, 1);
-        const y = fromY + (toY - fromY) * ease(t);
-        overlay.style.setProperty('--spot-x', `${x}px`);
-        overlay.style.setProperty('--spot-y', `${y}px`);
-        overlay.style.opacity = '1';
+        // fades in for the first half, holds, fades out for the second half
+        const fade = Math.sin(Math.min(t * Math.PI, Math.PI));
+        overlay.style.opacity = `${fade}`;
         if (t < 1) {
           requestAnimationFrame(step);
         } else {
@@ -197,7 +192,7 @@ export default function HomePage() {
       lastScrollY = currentY;
       if (direction && direction !== lastDirection && !sweeping) {
         lastDirection = direction;
-        runSweep(direction);
+        runSweep();
       }
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
