@@ -79,6 +79,10 @@ export function BlogLayout({ meta, children }: { meta: BlogMeta; children: React
         dateModified: meta.dateModified ?? meta.datePublished,
         author: { '@id': 'https://www.drolivaresm.cl/#business' },
         publisher: { '@id': 'https://www.drolivaresm.cl/#business' },
+        speakable: {
+          '@type': 'SpeakableSpecification',
+          cssSelector: ['h1', '.prose-blog p'],
+        },
       },
       {
         '@type': 'BreadcrumbList',
