@@ -6,7 +6,7 @@ El Dr. Rodrigo Olivares M. realiza reemplazos totales de cadera (artroplastía t
 
 ## Sitio web
 
-- [Inicio](https://www.drolivaresm.cl/): Presentación del doctor, servicios, testimonios y formulario de contacto.
+- [Inicio](https://www.drolivaresm.cl/): Presentación del doctor, servicios, opiniones de pacientes (Google, Doctoralia, Top Doctors) y formulario de contacto.
 - [Agendar consulta](https://www.drolivaresm.cl/cita): Formulario de contacto y link directo al sistema de agenda de Clínica Bupa Santiago.
 - [Blog de salud de cadera](https://www.drolivaresm.cl/blog): Artículos médicos sobre patologías y tratamientos de cadera, escritos por el Dr. Olivares.
 

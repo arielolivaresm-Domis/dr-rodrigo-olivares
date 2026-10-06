@@ -116,7 +116,7 @@ export default function Cita() {
 
                 <button
                   type="submit"
-                  className="inline-flex items-center gap-3 bg-brand-600 text-white px-8 py-4 rounded-sm font-medium tracking-wide hover:bg-brand-700 transition-all shadow-lg shadow-brand-600/30"
+                  className="inline-flex items-center gap-3 bg-brand-700 text-white px-8 py-4 rounded-sm font-medium tracking-wide hover:bg-brand-800 transition-all shadow-lg shadow-black/20"
                 >
                   ENVIAR SOLICITUD <ArrowUpRight size={20} />
                 </button>
@@ -133,7 +133,7 @@ export default function Cita() {
                   href={BUPA_PROFILE_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-brand-600 text-white px-5 py-3 text-sm font-medium rounded-sm hover:bg-brand-700 transition-colors"
+                  className="inline-flex items-center gap-2 bg-brand-700 text-white px-5 py-3 text-sm font-medium rounded-sm hover:bg-brand-800 transition-colors"
                 >
                   VER EN CLÍNICA BUPA <ArrowUpRight size={14} />
                 </a>

@@ -150,7 +150,7 @@ export function BlogLayout({ meta, children }: { meta: BlogMeta; children: React
         </div>
       </article>
 
-      <section className="bg-brand-600 py-14 text-white text-center">
+      <section className="bg-brand-700 py-14 text-white text-center">
         <p className="text-brand-100 mb-3 tracking-wide text-sm uppercase">¿Tienes dudas sobre tu caso?</p>
         <h3 className="font-serif text-2xl md:text-3xl mb-8">Agenda una consulta con el Dr. Olivares</h3>
         <a

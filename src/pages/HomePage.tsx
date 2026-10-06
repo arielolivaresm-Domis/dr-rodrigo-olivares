@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, ChevronLeft, ChevronRight, MapPin, Instagram, Menu, X, Star, Shield } from 'lucide-react';
+import { ArrowUpRight, ChevronRight, MapPin, Instagram, Menu, X, Star, Shield } from 'lucide-react';
 import { motion, useInView, AnimatePresence } from 'motion/react';
 
 const BUPA_URL = "https://agendaclinicas.bupa.cl/clinicas/consulta-medica/reserva-consulta-medica?ref=cbs&profesional=Rodrigo+Andres+Olivares+Miranda&especialidad=Traumatologia+Cadera";
-const HERO_SPOT_RADIUS = 170;
 
 const ESPECIALIDADES = [
   {
@@ -42,14 +41,8 @@ const ESPECIALIDADES = [
 const NAV_LINKS = [
   { label: 'Especialidades', id: 'especialidades' },
   { label: 'Sobre mí', id: 'sobre-mi' },
-  { label: 'Testimonios', id: 'testimonios' },
+  { label: 'Opiniones', id: 'opiniones' },
   { label: 'Ubicación', id: 'ubicacion' },
-];
-
-const TESTIMONIALS = [
-  { name: "María González", date: "Enero 2025", text: "El Dr. Olivares es un excelente profesional. Me explicó todo detalladamente antes de mi cirugía de reemplazo de cadera. La recuperación fue excelente y ahora puedo caminar sin dolor. ¡Totalmente recomendado!" },
-  { name: "Carlos Mendoza", date: "Noviembre 2024", text: "Atención maravillosa. El equipo médico es muy amable y educado, y el doctor es simplemente competentísimo. Me operó de una fractura y el resultado ha sido inmejorable." },
-  { name: "Ana Silva", date: "Febrero 2025", text: "Llevo años atendiéndome con este excelente profesional y su equipo. Totalmente recomendado, agradezco toda la atención dirigida a lo largo de este tiempo. Que Dios lo bendiga inmensamente." },
 ];
 
 function CountUp({ end, prefix = '', suffix = '', duration = 2000, className = '' }: { end: number, prefix?: string, suffix?: string, duration?: number, className?: string, enableScrollSpy?: boolean, scrollSpyOnce?: boolean }) {
@@ -94,6 +87,202 @@ function FadeIn({ children, delay = 0, className = '' }: { children: React.React
   );
 }
 
+type PatientReview = { name: string; date: string; text: string; stars?: number };
+type ReviewPlatform = {
+  id: string;
+  name: string;
+  rating: string;
+  stars: number;
+  total: number;
+  profileUrl?: string;
+  logoUrl?: string;
+  reviewUrl?: string;
+  reviews: PatientReview[];
+};
+
+// Reseñas reales de plataformas externas. Sin JSON-LD (Google no premia reseñas propias/copiadas).
+// Excluidas hasta confirmar (posible relación con el doctor/agencia): "Ariel" en Doctoralia 2020 y Top Doctors 2026.
+const REVIEW_PLATFORMS: ReviewPlatform[] = [
+  {
+    id: 'doctoralia',
+    name: 'Doctoralia',
+    rating: '5.0',
+    stars: 5,
+    total: 4,
+    profileUrl: 'https://www.doctoralia.cl/perfil/rodrigo-olivares-miranda#profile-reviews',
+    reviewUrl: 'https://www.doctoralia.cl/anade-opinion/rodrigo-olivares-miranda',
+    reviews: [
+      { name: 'Alfonso', date: '4 sep 2026', stars: 5, text: 'Muy buena la experiencia lograda en la cirugia a mi cadera... excelente profesional, claro en las indicaciones pre y pos operatorias' },
+      { name: 'Mario', date: '1 sep 2026', stars: 5, text: 'Muy claro y sincero, me sugirio tratamiento kinesiologico en vez de quirúrgico y he andado super' },
+      { name: 'Mia', date: '13 ago 2026', stars: 5, text: 'Dr muy recomendado, desde la primera consulta hasta el post operatorio a salido todo muy bien' },
+    ],
+  },
+  {
+    id: 'google',
+    name: 'Google',
+    rating: '5.0',
+    stars: 5,
+    total: 2,
+    profileUrl: 'https://g.page/r/CdzR6hYoj-f2EBM',
+    reviewUrl: 'https://g.page/r/CdzR6hYoj-f2EBM/review',
+    // El logo de Google lleva directo a dejar reseña
+    logoUrl: 'https://g.page/r/CdzR6hYoj-f2EBM/review',
+    reviews: [
+      { name: 'Kazar Propiedades', date: 'Sep 2026', stars: 5, text: 'Elegí al Dr. Olivares por tincada, fui a la consulta y quedé decidida por sus manos y su seguridad al expresarse. Me dejó muyyyyyyyy tranquila y por supuesto, ahora que me operé hace un mes y dos días, lo súper recomiendo. Camino ya sin bastones, la prótesis quedó realmente impecable y yo feliz.' },
+      // TODO(Ariel): segunda reseña de Google (texto pendiente)
+    ],
+  },
+  {
+    id: 'topdoctors',
+    name: 'Top Doctors',
+    rating: '5.0',
+    stars: 5,
+    total: 2,
+    profileUrl: 'https://www.topdoctors.cl/doctor/rodrigo-andres-olivares-miranda/#reviews',
+    reviewUrl: 'https://www.topdoctors.cl/reviewme/cm9kcmlnby1hbmRyZXMtb2xpdmFyZXMtbWlyYW5kYSYmcHBsLXBob25lJiY3/',
+    reviews: [
+      { name: 'Estefany B.', date: '13 ago 2026', stars: 5, text: 'Recomiendo a Dr Rodrigo Olivares, fue super acertivo y claro en toda la información entregada. Muy preocupado y atento de mi seguimiento' },
+    ],
+  },
+];
+const REVIEWS_VISIBLE = 2;
+
+function PlatformLogo({ id }: { id: string }) {
+  if (id === 'google') {
+    return (
+      <svg width="22" height="22" viewBox="0 0 48 48" aria-hidden="true">
+        <path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.1C12.4 13.6 17.7 9.5 24 9.5z"/>
+        <path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.2 5.5-4.7 7.2l7.5 5.8c4.4-4.1 7-10.1 7-17.5z"/>
+        <path fill="#FBBC05" d="M10.5 28.7A14.5 14.5 0 0 1 9.5 24c0-1.6.3-3.2.8-4.7l-7.9-6.1A24 24 0 0 0 0 24c0 3.9.9 7.5 2.6 10.8l7.9-6.1z"/>
+        <path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.5-5.8c-2.1 1.4-4.9 2.3-8.4 2.3-6.3 0-11.6-4.1-13.5-9.8l-7.9 6.1C6.5 42.6 14.6 48 24 48z"/>
+      </svg>
+    );
+  }
+  if (id === 'doctoralia') {
+    return <img src="/logos/doctoralia.webp" alt="Doctoralia" width={347} height={64} loading="lazy" decoding="async" className="h-7 w-auto" />;
+  }
+  if (id === 'topdoctors') {
+    return <img src="/logos/topdoctors.webp" alt="Top Doctors" width={462} height={80} loading="lazy" decoding="async" className="h-8 w-auto" />;
+  }
+  return null;
+}
+
+function StarRow({ count, size = 14 }: { count: number; size?: number }) {
+  return (
+    <span className="flex gap-0.5" role="img" aria-label={`${count} de 5 estrellas`}>
+      {[...Array(5)].map((_, i) => (
+        <Star key={i} size={size} className={i < count ? 'fill-yellow-400 text-yellow-400' : 'text-slate-300'} />
+      ))}
+    </span>
+  );
+}
+
+function ReviewCard({ r }: { r: PatientReview; key?: React.Key }) {
+  return (
+    <figure className="bg-white border border-slate-200 rounded-lg p-5 transition-[transform,box-shadow,border-color] duration-200 ease-out-strong hover:-translate-y-1 hover:shadow-xl hover:shadow-black/30 hover:border-white motion-reduce:hover:translate-y-0">
+      {r.stars ? <div className="mb-2"><StarRow count={r.stars} size={13} /></div> : null}
+      <blockquote className="text-slate-700 font-light leading-relaxed text-sm">“{r.text}”</blockquote>
+      <figcaption className="mt-3 text-xs text-slate-500">
+        <span className="font-medium text-slate-700">{r.name}</span> · {r.date}
+      </figcaption>
+    </figure>
+  );
+}
+
+function PlatformColumn({ p }: { p: ReviewPlatform }) {
+  const [open, setOpen] = useState(false);
+  const shown = p.reviews.slice(0, REVIEWS_VISIBLE);
+  const extra = p.reviews.slice(REVIEWS_VISIBLE);
+  const panelId = `reviews-extra-${p.id}`;
+  const logo = (
+    <span className="flex items-center gap-2 h-11 bg-white rounded-md px-3 origin-left transition-transform duration-200 ease-out-strong group-hover:scale-110 motion-reduce:transform-none">
+      <PlatformLogo id={p.id} />
+      {p.id === 'google' && <span className="font-semibold text-slate-900 text-lg">{p.name}</span>}
+    </span>
+  );
+  return (
+    <div className="flex flex-col gap-4">
+      <div className="pb-4 border-b border-brand-800">
+        <div className="flex items-center justify-between gap-3">
+          {(p.logoUrl ?? p.profileUrl) ? (
+            <a
+              href={p.logoUrl ?? p.profileUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={p.logoUrl ? `Dejar una reseña del Dr. Olivares en ${p.name} (abre en nueva pestaña)` : `Ver opiniones del Dr. Olivares en ${p.name} (abre en nueva pestaña)`}
+              className="group inline-flex rounded focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+            >
+              {logo}
+            </a>
+          ) : (
+            <span className="group inline-flex">{logo}</span>
+          )}
+          {extra.length > 0 && (
+            <button
+              type="button"
+              onClick={() => setOpen(o => !o)}
+              aria-expanded={open}
+              aria-controls={panelId}
+              className="flex items-center gap-1 text-xs text-brand-100 shrink-0 cursor-pointer hover:text-white transition-colors"
+            >
+              {open ? 'Ver menos' : `Ver ${extra.length} más`}
+              <ChevronRight size={14} className={`transition-transform ${open ? '-rotate-90' : 'rotate-90'}`} />
+            </button>
+          )}
+        </div>
+        <span className="flex items-center gap-2 mt-2">
+          <StarRow count={p.stars} />
+          <span className="text-sm text-brand-100">{p.rating} · {p.total} opiniones</span>
+        </span>
+      </div>
+      {shown.map((r, i) => <ReviewCard key={i} r={r} />)}
+      {extra.length > 0 && (
+        <div
+          id={panelId}
+          className={`grid transition-[grid-template-rows] duration-300 ease-out ${open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}
+          {...(!open ? { inert: true } : {})}
+        >
+          <div className="overflow-hidden">
+            <div className="flex flex-col gap-4">
+              {extra.map((r, i) => <ReviewCard key={i} r={r} />)}
+            </div>
+          </div>
+        </div>
+      )}
+      <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs">
+        {p.profileUrl && <a href={p.profileUrl} target="_blank" rel="noopener noreferrer" className="text-brand-100 underline underline-offset-2 hover:text-white transition-colors">Ver perfil en {p.name}</a>}
+        {p.reviewUrl && <a href={p.reviewUrl} target="_blank" rel="noopener noreferrer" className="text-brand-100 underline underline-offset-2 hover:text-white transition-colors">Deja tu reseña</a>}
+      </div>
+    </div>
+  );
+}
+
+// Video below the fold: no download until near viewport, then autoplay muted.
+function LazyVideo() {
+  const ref = useRef<HTMLVideoElement>(null);
+  const inView = useInView(ref, { once: true, margin: '200px' });
+  useEffect(() => {
+    const v = ref.current;
+    if (!inView || !v) return;
+    v.src = '/VideoCadera.mp4';
+    v.play().catch(() => {});
+  }, [inView]);
+  return (
+    <video
+      ref={ref}
+      className="max-h-[60vh] w-auto block opacity-90 group-hover:opacity-100 transition-opacity duration-500"
+      poster="/VideoCadera-poster.webp"
+      width={720}
+      height={1280}
+      preload="none"
+      muted
+      loop
+      playsInline
+      aria-label="Animación de artrosis de cadera y artroplastía"
+    />
+  );
+}
+
 const HOME_FAQ = [
   { q: '¿Cuándo es necesario el reemplazo total de cadera?', a: 'El reemplazo total de cadera (artroplastía) está indicado cuando el dolor limita las actividades diarias, los tratamientos conservadores (medicamentos, fisioterapia, infiltraciones) ya no controlan el dolor, y las imágenes confirman destrucción articular avanzada. La decisión se toma caso a caso con el especialista.' },
   { q: '¿Cuánto dura la recuperación de una cirugía de cadera?', a: 'La recuperación de un reemplazo total de cadera tiene varias etapas: los primeros días el paciente camina con ayuda, a las 6 semanas retoma actividades básicas, y entre 3 y 6 meses logra plena independencia. Los tiempos exactos dependen del estado previo del paciente y la técnica quirúrgica utilizada.' },
@@ -110,45 +299,9 @@ export default function HomePage() {
   const [pharosAnim, setPharosAnim] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [privacyOpen, setPrivacyOpen] = useState(false);
-  const [testimonialIdx, setTestimonialIdx] = useState(0);
   const [navScrolled, setNavScrolled] = useState(false);
   const [model1Loaded, setModel1Loaded] = useState(false);
   const [model2Loaded, setModel2Loaded] = useState(false);
-  const heroSectionRef = useRef<HTMLElement>(null);
-  const heroImgRef = useRef<HTMLDivElement>(null);
-  const heroXrayRef = useRef<HTMLDivElement>(null);
-
-  // Desktop: X-ray spotlight over hero photo tracks the real cursor.
-  // Listener sits on the whole section (not the photo box) because the
-  // full-width text container overlaps the photo's hit-testing area.
-  useEffect(() => {
-    const section = heroSectionRef.current;
-    const content = heroImgRef.current;
-    const overlay = heroXrayRef.current;
-    if (!section || !content || !overlay) return;
-    if (window.matchMedia('(pointer: coarse)').matches) return;
-
-    const setSpot = (clientX: number, clientY: number) => {
-      const rect = content.getBoundingClientRect();
-      const r = HERO_SPOT_RADIUS;
-      const x = Math.min(Math.max(clientX - rect.left, r), Math.max(rect.width - r, r));
-      const y = Math.min(Math.max(clientY - rect.top, r), Math.max(rect.height - r, r));
-      overlay.style.setProperty('--spot-x', `${x}px`);
-      overlay.style.setProperty('--spot-y', `${y}px`);
-      overlay.style.opacity = '1';
-    };
-
-    const handlePointerMove = (e: PointerEvent) => setSpot(e.clientX, e.clientY);
-    const handlePointerLeave = () => { overlay.style.opacity = '0'; };
-
-    section.addEventListener('pointermove', handlePointerMove);
-    section.addEventListener('pointerleave', handlePointerLeave);
-    return () => {
-      section.removeEventListener('pointermove', handlePointerMove);
-      section.removeEventListener('pointerleave', handlePointerLeave);
-    };
-  }, []);
-
   useEffect(() => {
     const s = document.createElement('script');
     s.id = 'home-faqpage-schema';
@@ -224,8 +377,6 @@ export default function HomePage() {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const prevTestimonial = () => setTestimonialIdx(i => (i - 1 + TESTIMONIALS.length) % TESTIMONIALS.length);
-  const nextTestimonial = () => setTestimonialIdx(i => (i + 1) % TESTIMONIALS.length);
 
   return (
     <div className="min-h-screen bg-white text-slate-600 font-sans selection:bg-brand-500 selection:text-white">
@@ -272,12 +423,14 @@ export default function HomePage() {
               href={BUPA_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className={`hidden md:inline-flex items-center gap-2 px-5 py-2 text-sm font-medium rounded-sm transition-all ${navScrolled ? 'bg-brand-600 text-white hover:bg-brand-700' : 'bg-white/15 text-white border border-white/30 hover:bg-white/25'}`}
+              className={`hidden md:inline-flex items-center gap-2 px-5 py-2 text-sm font-medium rounded-sm transition-all ${navScrolled ? 'bg-brand-700 text-white hover:bg-brand-800' : 'bg-white/15 text-white border border-white/30 hover:bg-white/25'}`}
             >
               Agendar <ArrowUpRight size={14} />
             </a>
             <button
               onClick={() => setMenuOpen(v => !v)}
+              aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
+              aria-expanded={menuOpen}
               className={`md:hidden ${navScrolled ? 'text-slate-900' : 'text-white'}`}
             >
               {menuOpen ? <X size={22} /> : <Menu size={22} />}
@@ -321,7 +474,7 @@ export default function HomePage() {
                   href={BUPA_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-3 inline-flex items-center justify-center gap-2 bg-brand-600 text-white px-6 py-3 rounded-sm font-medium text-sm"
+                  className="mt-3 inline-flex items-center justify-center gap-2 bg-brand-700 text-white px-6 py-3 rounded-sm font-medium text-sm"
                 >
                   AGENDAR CONSULTA <ArrowUpRight size={16} />
                 </a>
@@ -332,26 +485,14 @@ export default function HomePage() {
       </nav>
 
       {/* ── HERO ───────────────────────────────────────── */}
-      <section id="inicio" ref={heroSectionRef} className="relative min-h-screen flex items-center pt-20 pb-20 overflow-hidden bg-brand-900 text-white">
+      <section id="inicio" className="relative min-h-screen flex items-center pt-20 pb-20 overflow-hidden bg-brand-900 text-white">
         <div className="absolute inset-0 z-0 flex justify-end">
-          <div ref={heroImgRef} className="w-full md:w-2/3 h-full relative overflow-hidden">
+          <div className="w-full md:w-2/3 h-full relative overflow-hidden">
             <img
               src="/DrOlivares.webp"
               alt="Dr. Rodrigo Olivares Miranda"
               className="w-full h-full object-cover object-top"
               referrerPolicy="no-referrer"
-            />
-            <div
-              ref={heroXrayRef}
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-0 z-[15] opacity-0 transition-opacity duration-300"
-              style={{
-                backgroundImage: 'url(/operacion1.jpeg)',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center 35%',
-                WebkitMaskImage: `radial-gradient(${HERO_SPOT_RADIUS}px circle at var(--spot-x, 50%) var(--spot-y, 50%), black 0%, black 55%, transparent 100%)`,
-                maskImage: `radial-gradient(${HERO_SPOT_RADIUS}px circle at var(--spot-x, 50%) var(--spot-y, 50%), black 0%, black 55%, transparent 100%)`,
-              }}
             />
             <div className="absolute inset-0 bg-gradient-to-r from-brand-900 via-brand-900/75 to-brand-900/15 md:via-brand-900/40 md:to-transparent z-10"></div>
             <div className="absolute inset-0 bg-gradient-to-t from-brand-900/85 via-brand-900/25 to-transparent md:from-brand-900/50 md:via-transparent md:to-transparent z-10"></div>
@@ -360,50 +501,30 @@ export default function HomePage() {
 
         <div className="container mx-auto px-6 md:px-12 relative z-20">
           <div className="max-w-2xl">
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-sm tracking-[0.2em] uppercase text-brand-100 mb-4"
-            >
+            <p className="text-sm tracking-[0.2em] uppercase text-brand-100 mb-4">
               Dr.
-            </motion.p>
-            <motion.h1
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.35, duration: 0.7 }}
-              className="font-serif text-5xl md:text-7xl leading-tight mb-6 text-white"
-            >
+            </p>
+            <h1 className="font-serif text-5xl md:text-7xl leading-tight mb-6 text-white">
               Rodrigo <br />
               <span className="italic">Olivares Miranda</span>
               <span className="sr-only"> — Cirujano de Cadera Santiago</span>
-            </motion.h1>
+            </h1>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.55 }}
-              className="mb-10 max-w-md"
-            >
+            <div className="mb-10 max-w-md">
               <h2 className="text-xl font-medium mb-4 text-white">Recupera tu movilidad, transforma tu vida.</h2>
               <p className="text-brand-50 font-light leading-relaxed">
                 Mi trabajo consiste en brindarte el mejor tratamiento para tus problemas de cadera,
                 proporcionando alivio del dolor y mejorando tu calidad de vida. Me especializo en
                 soluciones personalizadas y acompañamiento integral en cada etapa de tu recuperación.
               </p>
-            </motion.div>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7 }}
-              className="flex flex-wrap gap-4"
-            >
+            <div className="flex flex-wrap gap-4">
               <a
                 href={BUPA_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 bg-brand-600 text-white px-8 py-4 rounded-sm font-medium tracking-wide hover:bg-brand-700 transition-all shadow-lg shadow-brand-600/30"
+                className="inline-flex items-center gap-3 bg-brand-700 text-white px-8 py-4 rounded-sm font-medium tracking-wide hover:bg-brand-800 transition-all shadow-lg shadow-black/20"
               >
                 AGENDAR CONSULTA BUPA
                 <ArrowUpRight size={20} />
@@ -414,7 +535,7 @@ export default function HomePage() {
               >
                 Agendar consulta online
               </Link>
-            </motion.div>
+            </div>
           </div>
 
           <div className="mt-24 grid grid-cols-1 md:grid-cols-4 gap-8 items-end border-t border-brand-800 pt-8">
@@ -488,12 +609,7 @@ export default function HomePage() {
           <FadeIn>
             <div className="w-fit mx-auto rounded-2xl overflow-hidden shadow-2xl border border-brand-dark/10 relative group bg-black">
               <div style={{ marginTop: '-25%', marginBottom: '-25%' }}>
-                <video
-                  className="max-h-[60vh] w-auto block opacity-90 group-hover:opacity-100 transition-opacity duration-500"
-                  autoPlay muted loop playsInline
-                >
-                  <source src="/VideoCadera.mp4" type="video/mp4" />
-                </video>
+                <LazyVideo />
               </div>
             </div>
           </FadeIn>
@@ -539,8 +655,12 @@ export default function HomePage() {
           <FadeIn>
             <div className="max-w-3xl mx-auto aspect-[4/5] rounded-2xl overflow-hidden shadow-xl">
               <img
-                src="/operacion1.jpeg"
+                src="/operacion1.webp"
                 alt="Dr. Rodrigo Olivares en pabellón quirúrgico"
+                width={900}
+                height={1600}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover object-center"
                 referrerPolicy="no-referrer"
               />
@@ -620,7 +740,7 @@ export default function HomePage() {
                 href={BUPA_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 bg-brand-600 text-white px-7 py-3 rounded-sm font-medium hover:bg-brand-700 transition-all shadow-md shadow-brand-600/20"
+                className="inline-flex items-center gap-3 bg-brand-700 text-white px-7 py-3 rounded-sm font-medium hover:bg-brand-800 transition-all shadow-md shadow-black/15"
               >
                 AGENDAR CONSULTA <ArrowUpRight size={18} />
               </a>
@@ -661,43 +781,16 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── TESTIMONIOS ────────────────────────────────── */}
-      <section id="testimonios" className="bg-brand-900 text-white py-24 border-t border-brand-800">
+      {/* ── OPINIONES DE PACIENTES (plataformas externas) ── */}
+      <section id="opiniones" className="bg-brand-900 text-white py-24 border-t border-brand-800">
         <div className="container mx-auto px-6 md:px-12">
-          <FadeIn>
-            <div className="flex flex-col md:flex-row justify-between items-end mb-16">
-              <div>
-                <p className="text-xs tracking-[0.2em] uppercase text-brand-100 mb-4">Dr. Rodrigo Olivares Miranda</p>
-                <h2 className="font-serif text-4xl md:text-5xl">Testimonios:</h2>
-              </div>
-              <div className="flex gap-4 mt-8 md:mt-0">
-                <button onClick={prevTestimonial} className="w-12 h-12 border border-brand-700 flex items-center justify-center hover:bg-brand-800 transition-colors rounded-full">
-                  <ChevronLeft size={20} />
-                </button>
-                <button onClick={nextTestimonial} className="w-12 h-12 border border-brand-700 flex items-center justify-center hover:bg-brand-800 transition-colors rounded-full">
-                  <ChevronRight size={20} />
-                </button>
-              </div>
-            </div>
+          <FadeIn className="mb-14">
+            <h2 className="font-serif text-4xl md:text-5xl">Opiniones de pacientes</h2>
           </FadeIn>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {TESTIMONIALS.map((t, i) => (
-              <FadeIn key={i} delay={i * 0.1}>
-                <motion.div
-                  animate={{ opacity: testimonialIdx === i ? 1 : 0.6, scale: testimonialIdx === i ? 1 : 0.97 }}
-                  transition={{ duration: 0.3 }}
-                  className="relative pt-6 cursor-pointer"
-                  onClick={() => setTestimonialIdx(i)}
-                >
-                  <div className="text-8xl font-serif text-brand-800 absolute -top-6 -left-4 leading-none select-none">"</div>
-                  <div className="flex gap-0.5 mb-3 relative z-10">
-                    {[...Array(5)].map((_, s) => <Star key={s} size={14} className="fill-yellow-400 text-yellow-400" />)}
-                  </div>
-                  <h4 className="font-medium text-lg mb-1 relative z-10">{t.name}</h4>
-                  <p className="text-xs text-brand-100 font-medium italic mb-4 relative z-10">Paciente · Clínica Bupa Santiago</p>
-                  <p className="text-brand-50 font-light italic leading-relaxed relative z-10">{t.text}</p>
-                </motion.div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
+            {REVIEW_PLATFORMS.map((p, i) => (
+              <FadeIn key={p.id} delay={i * 0.1} className={['order-2', 'order-1', 'order-3'][i] + ' md:order-none'}>
+                <PlatformColumn p={p} />
               </FadeIn>
             ))}
           </div>
@@ -789,6 +882,7 @@ export default function HomePage() {
               <div className="aspect-video bg-slate-200 w-full rounded-sm overflow-hidden border border-slate-200 relative group">
                 <div className="absolute inset-0 bg-brand-900/10 group-hover:bg-transparent transition-colors pointer-events-none z-10"></div>
                 <iframe
+                  title="Ubicación Clínica Bupa Santiago en Google Maps"
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3326.331405108428!2d-70.5986873!3d-33.518784!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662d06f15711683%3A0x6b4033068f23f81e!2sCl%C3%ADnica%20Bupa%20Santiago!5e0!3m2!1sen!2scl!4v1700000000000!5m2!1sen!2scl"
                   width="100%" height="100%" style={{ border: 0 }} allowFullScreen={false} loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
@@ -799,20 +893,20 @@ export default function HomePage() {
             <FadeIn delay={0.15} className="md:w-1/2">
               <h2 className="font-serif text-4xl mb-10 text-slate-900">Dirección y horarios:</h2>
               <div className="mb-8">
-                <h4 className="font-medium text-lg mb-2 text-slate-900">Dónde estamos:</h4>
+                <h3 className="font-medium text-lg mb-2 text-slate-900">Dónde estamos:</h3>
                 <p className="font-light text-slate-600">Clínica Bupa Santiago</p>
                 <p className="font-light text-slate-500">Av. Departamental 1455, La Florida, Región Metropolitana</p>
                 <p className="font-light text-slate-400 text-sm mt-1">Accesible desde La Florida, Puente Alto, Macul y toda la Región Metropolitana.</p>
               </div>
               <div className="mb-10">
-                <h4 className="font-medium text-lg mb-2 text-slate-900">Horario de Funcionamiento:</h4>
+                <h3 className="font-medium text-lg mb-2 text-slate-900">Horario de Funcionamiento:</h3>
                 <p className="font-light text-slate-600">Lunes a Viernes: 08:00 hrs a 18:00 hrs</p>
               </div>
               <div className="flex flex-wrap gap-4">
-                <a href="https://waze.com/ul?ll=-33.518784,-70.5986873&navigate=yes" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 border-2 border-brand-600 text-brand-700 px-6 py-3 text-sm font-medium hover:bg-brand-600 hover:text-white transition-colors rounded-sm">
+                <a href="https://waze.com/ul?ll=-33.518784,-70.5986873&navigate=yes" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 border-2 border-brand-700 text-brand-700 px-6 py-3 text-sm font-medium hover:bg-brand-700 hover:text-white transition-colors rounded-sm">
                   <MapPin size={16} /> IR CON WAZE
                 </a>
-                <a href="https://m.uber.com/ul/?action=setPickup&client_id=uber&pickup=my_location&dropoff[latitude]=-33.518784&dropoff[longitude]=-70.5986873&dropoff[nickname]=Clínica%20Bupa%20Santiago" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 border-2 border-brand-600 text-brand-700 px-6 py-3 text-sm font-medium hover:bg-brand-600 hover:text-white transition-colors rounded-sm">
+                <a href="https://m.uber.com/ul/?action=setPickup&client_id=uber&pickup=my_location&dropoff[latitude]=-33.518784&dropoff[longitude]=-70.5986873&dropoff[nickname]=Clínica%20Bupa%20Santiago" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 border-2 border-brand-700 text-brand-700 px-6 py-3 text-sm font-medium hover:bg-brand-700 hover:text-white transition-colors rounded-sm">
                   <MapPin size={16} /> IR CON UBER
                 </a>
               </div>
@@ -822,7 +916,7 @@ export default function HomePage() {
       </section>
 
       {/* ── CTA FINAL ──────────────────────────────────── */}
-      <section className="bg-brand-600 py-16 text-white text-center">
+      <section className="bg-brand-700 py-16 text-white text-center">
         <FadeIn>
           <p className="text-brand-100 mb-3 tracking-wide text-sm uppercase">¿Listo para dar el primer paso?</p>
           <h3 className="font-serif text-3xl md:text-4xl mb-8">Agenda tu consulta hoy</h3>
@@ -872,7 +966,7 @@ export default function HomePage() {
             <a href="mailto:Dr.olivaresm@gmail.com" className="text-xs text-slate-500 hover:text-brand-700 transition-colors p-2 -m-2">
               Dr.olivaresm@gmail.com
             </a>
-            <a href="https://www.instagram.com/dr.rodrigo.olivares/" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-brand-700 transition-colors p-2 -m-2">
+            <a href="https://www.instagram.com/dr.rodrigo.olivares/" target="_blank" rel="noopener noreferrer" aria-label="Instagram del Dr. Rodrigo Olivares" className="text-slate-500 hover:text-brand-700 transition-colors p-2 -m-2">
               <Instagram size={18} />
             </a>
           </div>

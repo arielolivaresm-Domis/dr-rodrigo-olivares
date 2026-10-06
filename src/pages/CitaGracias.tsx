@@ -35,7 +35,7 @@ export default function CitaGracias() {
           </p>
           <Link
             to="/"
-            className="inline-flex items-center gap-3 bg-brand-600 text-white px-8 py-4 rounded-sm font-medium tracking-wide hover:bg-brand-700 transition-all shadow-lg shadow-brand-600/30"
+            className="inline-flex items-center gap-3 bg-brand-700 text-white px-8 py-4 rounded-sm font-medium tracking-wide hover:bg-brand-800 transition-all shadow-lg shadow-black/20"
           >
             <ArrowLeft size={18} /> VOLVER AL INICIO
           </Link>
