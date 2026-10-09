@@ -30,6 +30,19 @@ function GATracker() {
       });
     }
   }, [location.pathname]);
+
+  // Conversion = click to Bupa booking. One delegated listener covers every BUPA_URL link.
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      const a = (e.target as Element | null)?.closest?.('a[href*="agendaclinicas.bupa.cl"]');
+      if (!a || typeof window.gtag !== 'function') return;
+      window.gtag('event', 'bupa_booking_click', {
+        page_path: window.location.pathname,
+      });
+    };
+    document.addEventListener('click', onClick);
+    return () => document.removeEventListener('click', onClick);
+  }, []);
   return null;
 }
 
