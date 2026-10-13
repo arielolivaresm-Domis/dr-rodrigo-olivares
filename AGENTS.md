@@ -14,6 +14,13 @@
 2. `git push`.
 3. Vercel deploya automático a drolivaresm.cl.
 
+## Migración Mac ↔ Windows
+
+Si Ariel dice "revisá nuevas instrucciones de migración" (o equivalente), leer primero
+`D:/Proyectos/Agencia-PharosLab/informes/MANUAL-MIGRACION-MAC-WINDOWS.md` (Windows) o
+`/Users/mac/Agencia-PharosLab/informes/MANUAL-MIGRACION-MAC-WINDOWS.md` (Mac) y seguirlo antes de
+tocar nada más de este proyecto.
+
 ## Terminología — copy y keywords (Chile)
 
 - **NUNCA** usar "ortopedista" como keyword ni en copy — no es el término habitual en Chile.
